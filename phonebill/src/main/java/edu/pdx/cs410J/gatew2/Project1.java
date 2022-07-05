@@ -6,12 +6,12 @@ import com.google.common.annotations.VisibleForTesting;
  * The main class for the CS410J Phone Bill Project
  */
 public class Project1 {
-
-  @VisibleForTesting
-  static boolean isValidPhoneNumber(String phoneNumber) {
-    return true;
-  }
-
+  /**
+   * Prints out error messages or information about customer
+   * and their phonebill.
+   * @param args
+   *        command line arguments
+   */
   public static void main(String[] args) {
     String errorMessage = validateArgLength(args);
 

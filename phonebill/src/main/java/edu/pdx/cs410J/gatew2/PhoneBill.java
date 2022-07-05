@@ -36,6 +36,7 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
    * to customers list of calls.
    *
    * @param call
+   *        <code>PhoneCall</code> object
    */
   @Override
   public void addPhoneCall(PhoneCall call) {
