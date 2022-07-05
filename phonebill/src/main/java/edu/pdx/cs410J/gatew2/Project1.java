@@ -44,7 +44,8 @@ public class Project1 {
       return "Missing ending date and time (mm/dd/yyyy hh:mm)";
     }
     else if(args.length == 5) {
-      return validateEachArgument(args);
+      String errorMessage = validateEachArgument(args);
+      return errorMessage;
     }
     else {
       return "Too many arguments";
@@ -52,8 +53,44 @@ public class Project1 {
   }
 
   private static String validateEachArgument(String[] args) {
+    String customer = args[0];
+    String callerNumber = args[1];
+    String calleeNumber = args[2];
+    String begin = args[3];
+    String end = args[4];
 
-    return null;
+    if(callerNumber.matches("(\\d{3})-(\\d{3})-(\\d{4})") == false) {
+      //incorrect format
+      return "Caller number can only be in the format: nnn-nnn-nnnn";
+    }
+    //validate callee number
+    else if(calleeNumber.matches("(\\d{3})-(\\d{3})-(\\d{4})") == false) {
+      //incorrect format
+      return "Callee number can only be in the format: nnn-nnn-nnnn";
+    }
+    //validate begin
+    else if(begin.matches("(\\d{1,2}/(\\d{1,2})/(\\d{4}) (\\d{1,2}):(\\d{1,2}))") == false) {
+      //incorrect format
+      return "Beginning date and time can only be in the format: mm/dd/yyyy hh:mm";
+    }
+    //validate end
+    else if(end.matches("(\\d{1,2}/(\\d{1,2})/(\\d{4}) (\\d{1,2}):(\\d{1,2}))") == false) {
+      //incorrect format
+      return "Ending date and time can only be in the format: mm/dd/yyyy hh:mm";
+    }
+    else {
+      //All arguments are valid
+      //create new phone bill
+      return phoneBill(args);
+    }
   }
 
+  private static String phoneBill(String[] args) {
+    PhoneBill bill = new PhoneBill(args[0]);
+    PhoneCall call = new PhoneCall(args[1], args[2], args[3],args[4]);
+
+    bill.addPhoneCall(call);
+    return bill.toString() + "\n" + call.toString();
+
+  }
 }
