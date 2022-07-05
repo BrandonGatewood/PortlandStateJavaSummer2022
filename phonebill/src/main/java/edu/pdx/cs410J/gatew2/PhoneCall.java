@@ -31,8 +31,8 @@ public class PhoneCall extends AbstractPhoneCall {
   }
 
   /**
-   * Returns a <code>String</code> that
-   * contains the callers phone number.
+   * Returns a <code>String</code> that contains
+   * the callers phone number.
    */
   @Override
   public String getCaller() {
@@ -40,8 +40,8 @@ public class PhoneCall extends AbstractPhoneCall {
   }
 
   /**
-   * Returns a <code>String</code> that
-   * contains the callees phone number.
+   * Returns a <code>String</code> that contains
+   * the callees phone number.
    */
   @Override
   public String getCallee() {
@@ -49,9 +49,8 @@ public class PhoneCall extends AbstractPhoneCall {
   }
 
   /**
-   * Returns a <code>String</code> that
-   * the beginning date and time of the
-   * phone call.
+   * Returns a <code>String</code> that the beginning
+   * date and time of the phone call.
    */
   @Override
   public String getBeginTimeString() {
@@ -59,9 +58,8 @@ public class PhoneCall extends AbstractPhoneCall {
   }
 
   /**
-   * Returns a <code>String</code> that
-   * the ending date and time of the
-   * phone call.
+   * Returns a <code>String</code> that the ending date
+   * and time of the phone call.
    */
   @Override
   public String getEndTimeString() {

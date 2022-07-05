@@ -13,21 +13,20 @@ public class Project1 {
   }
 
   public static void main(String[] args) {
-    /*
-    PhoneCall call = new PhoneCall();  // Refer to one of Dave's classes so that we can be sure it is on the classpath
-    System.err.println("Missing command line arguments");
-    for (String arg : args) {
-      System.out.println(arg);
-    }
-     */
-    String errorMessage = validateCommandLine(args);
+    String errorMessage = validateArgLength(args);
 
-    if(errorMessage != null) {
-      System.out.println(errorMessage);
-    }
+    System.err.println(errorMessage);
   }
 
-  private static String validateCommandLine(String[] args) {
+  /**
+   * Validates that there are the correct amount
+   * of command line arguments before validating
+   * each argument.
+   *
+   * @param args
+   *        command line arguments
+   */
+  private static String validateArgLength(String[] args) {
     if(args.length == 0) {
       return "Missing command line arguments";
     }
@@ -38,12 +37,18 @@ public class Project1 {
       return "Missing callee number (nnn-nnn-nnnn)";
     }
     else if(args.length == 3) {
-      return "Missing beginning date and time (mm/dd/yyyy hh:mm)";
+      return "Missing beginning date (mm/dd/yyyy)";
     }
     else if(args.length == 4) {
-      return "Missing ending date and time (mm/dd/yyyy hh:mm)";
+      return "Missing beginning time (hh:mm)";
     }
     else if(args.length == 5) {
+      return "Missing ending date (mm/dd/yyyy)";
+    }
+    else if(args.length == 6) {
+      return "Missing ending time (hh:mm)";
+    }
+    else if(args.length == 7) {
       String errorMessage = validateEachArgument(args);
       return errorMessage;
     }
@@ -52,12 +57,23 @@ public class Project1 {
     }
   }
 
+  /**
+   * Validate arguments before adding customers
+   * phone call into their phone bill.
+   *
+   * - Customer name may contain characters and numbers.
+   * - Caller and Callee number can only contain digits 0-9 and must
+   *   be in the format nnn-nnn-nnnn.
+   * - Begin and end date and time can only contain digits and must
+   *   be in the format mm/dd/yyyy hh:mm.
+   */
+
   private static String validateEachArgument(String[] args) {
     String customer = args[0];
     String callerNumber = args[1];
     String calleeNumber = args[2];
-    String begin = args[3];
-    String end = args[4];
+    String begin = args[3] + " " + args[4];
+    String end = args[5] + " " + args[6];
 
     if(callerNumber.matches("(\\d{3})-(\\d{3})-(\\d{4})") == false) {
       //incorrect format
@@ -80,17 +96,22 @@ public class Project1 {
     }
     else {
       //All arguments are valid
+      String newArgs[] = {customer, callerNumber, calleeNumber, begin, end};
       //create new phone bill
-      return phoneBill(args);
+      return phoneBill(newArgs);
     }
   }
 
+  /**
+   * Create a <code>PhoneBill</code> and <code>PhoneCall</code>
+   * object with appropriate arguments. Then insert the new
+   * phone call into the customers phone bill.
+   */
   private static String phoneBill(String[] args) {
     PhoneBill bill = new PhoneBill(args[0]);
     PhoneCall call = new PhoneCall(args[1], args[2], args[3],args[4]);
 
     bill.addPhoneCall(call);
     return bill.toString() + "\n" + call.toString();
-
   }
 }
