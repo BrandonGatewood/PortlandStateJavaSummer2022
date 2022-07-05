@@ -34,7 +34,7 @@ public class PhoneBillTest {
         //GIVEN that customer is named "Brandon"
         PhoneBill bill = new PhoneBill("Brandon");
         //GIVEN that 1 call is added into "Brandon"'s phone bill
-        PhoneCall call = new PhoneCall();
+        PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", "1/3/2012 8:45", "1/3/2012 9:45");
         bill.addPhoneCall(call);
 
         //WHEN Phone calls is requested

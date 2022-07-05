@@ -13,22 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public class PhoneCallTest {
   @Test
-  void forProject1ItIsOkayIfGetBeginTimeReturnsNull() {
-    PhoneCall call = new PhoneCall();
-    assertThat(call.getBeginTime(), is(nullValue()));
-  }
-
-  @Test
   void forPhoneCallGetCaller1() {
-    //GIVEN that there is no caller number
-    PhoneCall call = new PhoneCall();
-
-    //WHEN call number is requested
-    //THEN call number is null
-    assertThat(call.getCaller(), equalTo(null));
-  }
-  @Test
-  void forPhoneCallGetCaller2() {
     //GIVEN that there is a caller number "808-324-0532"
     PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", "10/9/1997 10:20", "10/9/1997 10:30");
 
@@ -38,15 +23,6 @@ public class PhoneCallTest {
   }
   @Test
   void forPhoneCallGetCallee1() {
-    //GIVEN that there is no callee number
-    PhoneCall call = new PhoneCall();
-
-    //WHEN callee number is requested
-    //THEN callee number is null
-    assertThat(call.getCallee(), equalTo(null));
-  }
-  @Test
-  void forPhoneCallGetCallee2() {
     //GIVEN that there is a caller number "905-328-4034"
     PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", "1/3/2012 8:45", "1/3/2012 9:45");
 
@@ -56,15 +32,6 @@ public class PhoneCallTest {
   }
   @Test
   void forPhoneCallGetBeginTimeString1() {
-    //GIVEN that there is a beginning time null
-    PhoneCall call = new PhoneCall();
-
-    //WHEN beginning time is requested
-    //THEN beginning time is null
-    assertThat(call.getBeginTimeString(), equalTo(null));
-  }
-  @Test
-  void forPhoneCallGetBeginTimeString2() {
     //GIVEN that there is a beginning time "1/3/2012 8:45"
     PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", "1/3/2012 8:45", "1/3/2012 9:45");
 
@@ -74,15 +41,6 @@ public class PhoneCallTest {
   }
   @Test
   void forPhoneCallGetEndTimeString1() {
-    //GIVEN that there is an end time null
-    PhoneCall call = new PhoneCall();
-
-    //WHEN end time is requested
-    //THEN end time is null
-    assertThat(call.getEndTimeString(), equalTo(null));
-  }
-  @Test
-  void forPhoneCallGetEndTimeString2() {
     //GIVEN that there is an end time "1/3/2012 9:45"
     PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", "1/3/2012 8:45", "1/3/2012 9:45");
 
