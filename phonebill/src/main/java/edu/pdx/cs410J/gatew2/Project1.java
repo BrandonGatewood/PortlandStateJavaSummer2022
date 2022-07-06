@@ -35,7 +35,13 @@ public class Project1 {
               InputStream readme = Project1.class.getResourceAsStream("README.txt")
       ) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
-        return reader.readLine();
+        String read = reader.readLine();
+        StringBuilder readMe = new StringBuilder();
+        while(read != null) {
+          readMe.append(read).append("\n");
+          read = reader.readLine();
+        }
+        return readMe.toString();
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
