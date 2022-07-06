@@ -15,6 +15,8 @@ public class Project1 {
   public static void main(String[] args) {
     String errorMessage = validateArgLength(args);
 
+    //check if options were given.
+    
     System.err.println(errorMessage);
   }
 
