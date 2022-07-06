@@ -30,7 +30,7 @@ public class Project1 {
    */
   private static String validateArgLength(String[] args, boolean print) {
     //check if README option was given
-    if(args.length > 1 && args[0].equals("-README")) {
+    if(args.length >= 1 && args[0].equals("-README")) {
       try (
               InputStream readme = Project1.class.getResourceAsStream("README.txt")
       ) {
@@ -41,7 +41,7 @@ public class Project1 {
       }
     }
     //if readme option WASN'T given, then check if print option was given.
-    else if(args.length > 1 && args[0].equals("-print")) {
+    else if(args.length >= 1 && args[0].equals("-print")) {
       String[] newArgs = Arrays.copyOfRange(args, 1, args.length);
       return validateArgLength(newArgs, true);
     }
