@@ -19,7 +19,7 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
    */
   public PhoneBill(String customer) {
     this.customer = customer;
-    this.phoneCalls = new Vector<PhoneCall>();
+    this.phoneCalls = new Vector<>();
   }
 
   /**

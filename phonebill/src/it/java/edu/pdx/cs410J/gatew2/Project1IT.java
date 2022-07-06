@@ -28,6 +28,30 @@ class Project1IT extends InvokeMainTestCase {
   }
 
     /**
+     * Tests that invoking the main method with Print option issues an error
+     */
+    @Test
+    void testPrintOption() {
+        MainMethodResult result = invokeMain(Project1.class, "-print", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03\n"));
+    }
+    @Test
+    void testReadMeOption() {
+        MainMethodResult result = invokeMain(Project1.class, "-README", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+        assertThat(result.getTextWrittenToStandardError(), containsString("This is a README file!"));
+    }
+    @Test
+    void testReadMeOption1() {
+        MainMethodResult result = invokeMain(Project1.class, "-print","-README", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+        assertThat(result.getTextWrittenToStandardError(), containsString("This is a README file!"));
+    }
+    @Test
+    void testReadMeOption2() {
+        MainMethodResult result = invokeMain(Project1.class, "-README", "-print", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+        assertThat(result.getTextWrittenToStandardError(), containsString("This is a README file!"));
+    }
+
+    /**
     * Tests that invoking the main method with one argument issues an error
     */
     @Test

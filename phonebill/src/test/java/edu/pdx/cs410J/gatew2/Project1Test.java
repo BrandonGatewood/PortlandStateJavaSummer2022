@@ -46,31 +46,19 @@ class Project1Test {
   /**
    * Helper function to call main function in project1.java
    * @param copyArgs
+   *        An array of <code>String</code> containing command line arguments
    */
-  void validateArguments(String[] copyArgs) {
+  void validateArguments(String[] copyArgs){
     Project1 proj1 = new Project1();
-    String args[] = new String[copyArgs.length];
-    for(int i = 0; i < copyArgs.length; ++i) {
-      args[i] = copyArgs[i];
-    }
+    String[] args = copyArgs.clone();
 
     proj1.main(args);
   }
 
   @Test
-  void forValidatingCommandLineArguments0() {
-    //Given that there is no command line arguments
-    String args[] = new String[0];
-    validateArguments(args);
-
-    //WHEN no command line arguments are included
-    //THEN output should be "Missing command line argument\n"
-    assertThat(errContent.toString(), equalTo("Missing command line arguments\n"));
-  }
-  @Test
   void forValidatingCommandLineArguments1() {
     //Given that there is 1 command line arguments
-    String args[] = {"Brandon"};
+    String[] args = {"Brandon"};
     validateArguments(args);
 
     //WHEN 1 command line arguments are included
@@ -80,7 +68,7 @@ class Project1Test {
   @Test
   void forValidatingCommandLineArguments2() {
     //Given that there is 1 command line arguments
-    String args[] = {"Brandon Gatewood"};
+    String[] args = {"Brandon Gatewood"};
     validateArguments(args);
 
     //WHEN 1 command line arguments are included
@@ -90,7 +78,7 @@ class Project1Test {
   @Test
   void forValidatingCommandLineArguments3() {
     //Given that there is 2 command line arguments
-    String args[] = {"Brandon", "905-214-4433"};
+    String[] args = {"Brandon", "905-214-4433"};
     validateArguments(args);
 
     //WHEN 2 command line arguments are included
@@ -101,7 +89,7 @@ class Project1Test {
   @Test
   void forValidatingCommandLineArguments4() {
     //Given that there is 3 command line arguments
-    String args[] = {"Brandon", "905-214-4433", "905-213-4430"};
+    String[] args = {"Brandon", "905-214-4433", "905-213-4430"};
     validateArguments(args);
 
     //WHEN 3 command line arguments are included
@@ -111,7 +99,7 @@ class Project1Test {
   @Test
   void forValidatingCommandLineArguments5() {
     //Given that there is 4 command line arguments
-    String args[] = {"Brandon", "905-214-4433", "905-213-4430", "1/1/2029"};
+    String[] args = {"Brandon", "905-214-4433", "905-213-4430", "1/1/2029"};
     validateArguments(args);
 
     //WHEN 4 command line arguments are included
@@ -121,7 +109,7 @@ class Project1Test {
   @Test
   void forValidatingCommandLineArguments6() {
     //Given that there is 5 command line arguments
-    String args[] = {"Brandon", "905-214-4433", "905-213-4430", "1/1/2029", "1:30"};
+    String[] args = {"Brandon", "905-214-4433", "905-213-4430", "1/1/2029", "1:30"};
     validateArguments(args);
 
     //WHEN 5 command line arguments are included
@@ -131,7 +119,7 @@ class Project1Test {
   @Test
   void forValidatingCommandLineArguments7() {
     //Given that there is 6 command line arguments
-    String args[] = {"Brandon", "905-214-4433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029"};
+    String[] args = {"Brandon", "905-214-4433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029"};
     validateArguments(args);
 
     //WHEN 6 command line arguments are included
@@ -141,7 +129,7 @@ class Project1Test {
   @Test
   void forValidatingCallerArgument0() {
     //Given that caller number is "9052144433" and correct amount of args
-    String args[] = {"Brandon Gatewood", "9052144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "9052144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -153,7 +141,7 @@ class Project1Test {
   @Test
   void forValidatingCallerArgument1() {
     //Given that caller number is "905-2144433" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-2144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-2144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -165,7 +153,7 @@ class Project1Test {
   @Test
   void forValidatingCallerArgument2() {
     //Given that caller number is "905-2144433" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-2144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-2144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -177,7 +165,7 @@ class Project1Test {
   @Test
   void forValidatingCallerArgument3() {
     //Given that caller number is "90e2144433" and correct amount of args
-    String args[] = {"Brandon Gatewood", "90e2144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "90e2144433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -189,7 +177,7 @@ class Project1Test {
   @Test
   void forValidatingCallerArgument4() {
     //Given that caller number is "905-144-433" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-144-433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-144-433", "905-213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -201,7 +189,7 @@ class Project1Test {
   @Test
   void forValidatingCalleeArgument0() {
     //Given that callee number is "9052134430" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "9052134430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "9052134430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -213,7 +201,7 @@ class Project1Test {
   @Test
   void forValidatingCalleeArgument1() {
     //Given that callee number is "905a2134430" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905a2134430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905a2134430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -225,7 +213,7 @@ class Project1Test {
   @Test
   void forValidatingCalleeArgument2() {
     //Given that callee number is "213-4430" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "213-4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -237,7 +225,7 @@ class Project1Test {
   @Test
   void forValidatingCalleeArgument3() {
     //Given that caller number is "4433" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "4430", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -249,7 +237,7 @@ class Project1Test {
   @Test
   void forValidatingCalleeArgument4() {
     //Given that caller number is "905-213-30" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-30", "1/1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-30", "1/1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -261,7 +249,7 @@ class Project1Test {
   @Test
   void forValidatingBeginArgument0() {
     //Given that beginning date and time "1-1/2029 1:30" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1-1/2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1-1/2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -273,7 +261,7 @@ class Project1Test {
   @Test
   void forValidatingBeginArgument1() {
     //Given that beginning date and time is "1-1-2029 1:30" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1-1-2029", "1:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1-1-2029", "1:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -286,7 +274,7 @@ class Project1Test {
   @Test
   void forValidatingBeginArgument2() {
     //Given that beginning date and time is "1/1/2029 a:30" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "a:30", "1/1/2029", "1:40"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "a:30", "1/1/2029", "1:40"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -298,7 +286,7 @@ class Project1Test {
   @Test
   void forValidatingEndArgument0() {
     //Given that ending date and time is "1/1/2029 1" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -310,7 +298,7 @@ class Project1Test {
   @Test
   void forValidatingEndArgument1() {
     //Given that ending date and time is "1/1/2029 1:" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1:"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1:"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -322,7 +310,7 @@ class Project1Test {
   @Test
   void forValidatingEndArgument2() {
     //Given that ending date and time is "1/1/2029 1" and correct amount of args
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1:03^3"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1:03^3"};
     validateArguments(args);
 
     //WHEN correct amount of command line arguments are included
@@ -334,25 +322,21 @@ class Project1Test {
   @Test
   void forPhoneBill0() {
     //GIVEN that all arguments are valid
-    String args[] = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1:03"};
+    String[] args = {"Brandon Gatewood", "905-214-4433", "905-213-3430", "1/1/2029", "1:30", "1/1/2029", "1:03"};
     validateArguments(args);
 
     //WHEN arguments have passed validation
-    //THEN output should be:
-    //"Brandon Gatewood's phone bill with 1 phone calls\n"
-    //"Phone call from 905-214-4433 to 905-213-3430 from  1/1/2029 1:30 to 1/1/2029 1:03\n"
-    assertThat(errContent.toString(), equalTo("Brandon Gatewood's phone bill with 1 phone calls\nPhone call from 905-214-4433 to 905-213-3430 from 1/1/2029 1:30 to 1/1/2029 1:03\n"));
+    //THEN output should be: "\n"
+    assertThat(errContent.toString(), equalTo("\n"));
   }
   @Test
   void forPhoneBill1() {
     //GIVEN that all arguments are valid
-    String args[] = {"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03"};
+    String[] args = {"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03"};
     validateArguments(args);
 
     //WHEN arguments have passed validation
-    //THEN output should be:
-    //"Brandon's phone bill with 1 phone calls\n"
-    //"Phone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03\n"
-    assertThat(errContent.toString(), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03\n"));
+    //THEN output should be: "\n"
+    assertThat(errContent.toString(), equalTo("\n"));
   }
 }
