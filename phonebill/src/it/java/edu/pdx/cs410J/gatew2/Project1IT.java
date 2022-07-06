@@ -109,7 +109,11 @@ class Project1IT extends InvokeMainTestCase {
      */
     @Test
     void testWithTooManyEnoughArguments() {
+        //GIVEN that there are too many arguments
         MainMethodResult result = invokeMain(Project1.class, "Brandon f", "094-340-3443", "943-439-3432", "1/1/1979", "2:21", "1/1/1979", "2:55", "1/1/1979 2:55");
+
+        //WHEN too many arguments are entered
+        //THEN output should be "Too many arguments\n"
         assertThat(result.getTextWrittenToStandardError(), containsString("Too many arguments\n"));
     }
 
