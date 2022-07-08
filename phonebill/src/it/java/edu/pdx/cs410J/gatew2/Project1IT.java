@@ -32,20 +32,20 @@ class Project1IT extends InvokeMainTestCase {
      */
     @Test
     void testPrintOption() {
-        //GIVEN that the print flag is entered
+        //GIVEN that the '-print' option is entered
         MainMethodResult result = invokeMain(Project1.class, "-print", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
 
-        //WHEN a print flag is entered
+        //WHEN '-print' option is entered
         //THEN output should be "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"
         assertThat(result.getTextWrittenToStandardError(), containsString("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03\n"));
     }
     @Test
     void testReadMeOption() {
-        //GIVEN that the README flag is entered
+        //GIVEN that the '-README' option is entered
         MainMethodResult result = invokeMain(Project1.class, "-README", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
 
-        //WHEN a README flag is entered
-        //THEN output should be: "Brandon Gatewood
+        //WHEN '-README' option is entered
+        //THEN output should be: "Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"
         assertThat(result.getTextWrittenToStandardError(), containsString("Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"));
     }
     @Test
@@ -142,6 +142,18 @@ class Project1IT extends InvokeMainTestCase {
         //WHEN there is only 6 arguments
         //THEN output should be "Missing ending time (hh:mm)\n"
         assertThat(result.getTextWrittenToStandardError(), containsString("Missing ending time (hh:mm)\n"));
+    }
+    /**
+     * Tests that invoking the main method with seven arguments issues an error
+     */
+    @Test
+    void testWithNotEnoughArguments7() {
+        //GIVEN that there are 7 arguments
+        MainMethodResult result = invokeMain(Project1.class, "Brandon f", "094-340-3443", "943-439-3432", "1/1/1979", "1:30", "1/1/1979", "1:30");
+
+        //WHEN there is 7 arguments
+        //THEN output should be ""
+        assertThat(result.getTextWrittenToStandardError(), containsString(""));
     }
 
     /**
