@@ -2,6 +2,8 @@ package beginner;
 
 import com.sandwich.koan.Koan;
 
+import java.awt.*;
+
 import static com.sandwich.koan.constant.KoanConstants.__;
 import static com.sandwich.util.Assert.assertEquals;
 
@@ -9,22 +11,24 @@ public class AboutEnums {
 
 
     enum Colors {
-        Red, Blue, Green, Yellow // what happens if you add a ; here?
+        Red(), Blue, Green, Yellow // what happens if you add a ; here?
+                                // it will add 'a' as a type of Colors
         // What happens if you type Red() instead?
+        //Nothing
     }
 
     @Koan
     public void basicEnums() {
         Colors blue = Colors.Blue;
-        assertEquals(blue == Colors.Blue, __);
-        assertEquals(blue == Colors.Red, __);
-        assertEquals(blue instanceof Colors, __);
+        assertEquals(blue == Colors.Blue, true);
+        assertEquals(blue == Colors.Red, false);
+        assertEquals(blue instanceof Colors, true);
     }
 
     @Koan
     public void basicEnumsAccess() {
         Colors[] colorArray = Colors.values();
-        assertEquals(colorArray[2], __);
+        assertEquals(colorArray[2], Colors.Green);
     }
 
     enum SkatSuits {
@@ -40,9 +44,12 @@ public class AboutEnums {
     @Koan
     public void enumsWithAttributes() {
         // value is private but we still can access it. Why?
+        // We can still access value because its in the enum class
         // Try moving the enum outside the AboutEnum class... What do you expect?
+        // We wont be able to access the private variable.
         // What happens?
-        assertEquals(SkatSuits.Clubs.value > SkatSuits.Spades.value, __);
+        // once enum was moved outside the AboutEnum class,we werent able to access value.
+        assertEquals(SkatSuits.Clubs.value > SkatSuits.Spades.value, true);
     }
 
     enum OpticalMedia {
@@ -61,7 +68,7 @@ public class AboutEnums {
 
     @Koan
     public void enumsWithMethods() {
-        assertEquals(OpticalMedia.CD.getCoolnessFactor(), __);
-        assertEquals(OpticalMedia.BluRay.getCoolnessFactor(), __);
+        assertEquals(OpticalMedia.CD.getCoolnessFactor(), -3500);
+        assertEquals(OpticalMedia.BluRay.getCoolnessFactor(), 490000);
     }
 }
