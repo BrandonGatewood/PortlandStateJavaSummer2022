@@ -3,6 +3,7 @@ package edu.pdx.cs410J.gatew2;
 import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.jupiter.api.*;
 
+import javax.swing.plaf.FileChooserUI;
 import java.io.*;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -67,7 +68,7 @@ class Project1Test {
 
   // Unit tests for validateArgLength(String[] args, boolean print)
   @Test
-  void validateArglength1() {
+  void validateArgLength1() {
     //Given that there is 1 command line argument
     String[] args = {"Brandon Gatewood"};
 
