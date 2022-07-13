@@ -2,6 +2,12 @@ package edu.pdx.cs410J.gatew2;
 
 import edu.pdx.cs410J.InvokeMainTestCase;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,8 +29,12 @@ class Project1IT extends InvokeMainTestCase {
    */
   @Test
   void testNoCommandLineArguments() {
+    String message = "Please include command line arguments. [options] <args>.";
+    String options = "Options include: '-README', '-print', and \"'-textFile' '.txt'\".";
+    String cmdLineArgs = "Args must be in the order: customer name, caller number (nnn-nnn-nnnn), callee number (nnn-nnn-nnnn), begin date (dd/dd/dddd), begin time (dd:dd), end date (dd/dd/dddd), and end time (dd:dd).";
+
     MainMethodResult result = invokeMain(Project1.class);
-    assertThat(result.getTextWrittenToStandardError(), containsString("Missing command line arguments\n"));
+    assertThat(result.getTextWrittenToStandardError(), containsString(message + "\n" + options + "\n" + cmdLineArgs));
   }
 
     /**
@@ -40,31 +50,111 @@ class Project1IT extends InvokeMainTestCase {
         assertThat(result.getTextWrittenToStandardError(), containsString("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03\n"));
     }
     @Test
-    void testReadMeOption() {
+    void testReadMeOption() throws IOException {
         //GIVEN that the '-README' option is entered
         MainMethodResult result = invokeMain(Project1.class, "-README", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
 
         //WHEN '-README' option is entered
-        //THEN output should be: "Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"
-        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"));
+        //THEN output should be: README.txt
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+        //assertThat(result.getTextWrittenToStandardError(), containsString("Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"));
     }
     @Test
-    void testReadMeOption1() {
-        //GIVEN that the print flag is entered before the README flag
+    void testReadMeOption1() throws IOException {
+        //GIVEN that the '-README' option is entered with the '-print' option.
         MainMethodResult result = invokeMain(Project1.class, "-print","-README", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
 
-        //WHEN a print flag is entered before the README flag
-        //THEN output should be: "Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"
-        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"));
+        //WHEN a '-print' option is entered before the '-README' option
+        //THEN output should be: README.txt
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
     @Test
-    void testReadMeOption2() {
-        //GIVEN that the README flag is entered
+    void testReadMeOption2() throws IOException {
+        //GIVEN that the '-README' option is entered
         MainMethodResult result = invokeMain(Project1.class, "-README", "-print", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
 
-        //WHEN a README flag is entered
-        //THEN output should be: "Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"
-        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"));
+        //WHEN a '-README' option is entered
+        //THEN output should be: README.txt
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    }
+    @Test
+    void testTextFileOption0() {
+        //GIVEN that the '-textFile' option is entered with no destination file.
+        MainMethodResult result = invokeMain(Project1.class, "-textFile", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with no destination file
+        //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
+        assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
+    }
+    @Test
+    void testTextFileOption1(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that a destination file is entered with no '-textFile' option
+        MainMethodResult result = invokeMain(Project1.class, String.valueOf(textFile),"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with no destination file
+        //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
+        assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
+    }
+    @Test
+    void testTextFileOption2(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that the '-textFile' option is entered with a destination file.
+        MainMethodResult result = invokeMain(Project1.class, "-textFile", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with a destination file
+        //THEN output should be: ""
+        assertThat(result.getTextWrittenToStandardError(), containsString(""));
+    }
+    @Test
+    void testTextFileOption3(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that the '-textFile' option is entered with a destination file in the wrong order.
+        MainMethodResult result = invokeMain(Project1.class, String.valueOf(textFile), "-textFile", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with a destination file in the wrong order
+        //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
+        assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
+    }
+    @Test
+    void testPrintAndTextFileOption0(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that the '-textFile' and '-print' option is entered with a destination file.
+        MainMethodResult result = invokeMain(Project1.class, "-print", "-textFile", String.valueOf(textFile),"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with no destination file
+        //THEN output should be: "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"
+        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    }
+    @Test
+    void testPrintAndTextFileOption1(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that the '-textFile' and '-print' option is entered with a destination file in the wrong order.
+        MainMethodResult result = invokeMain(Project1.class, "-textFile", "-print", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with no destination file in the wrong order
+        //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
+        assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
+    }
+    @Test
+    void testPrintAndTextFileOption2(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that the '-textFile' and '-print' option is entered with a destination file in the wrong order.
+        MainMethodResult result = invokeMain(Project1.class, String.valueOf(textFile), "-print", "-textFile", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN a '-textFile' option is entered with no destination file in the wrong order
+        //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
+        assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
+    }
+    @Test
+    void testREADMEANDPrintAndTextFileOption(@TempDir File tempDir) throws IOException {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that ALL options are entered
+        MainMethodResult result = invokeMain(Project1.class, "-README", "-print", "-textFile", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "1/1/1979", "5:03");
+
+        //WHEN ALL options are entered
+        //THEN output should be: README.txt
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
 
     /**

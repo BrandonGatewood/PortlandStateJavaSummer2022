@@ -58,6 +58,18 @@
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.codehaus.groovy</groupId>
+          <artifactId>groovy-json</artifactId>
+          <version>3.0.8</version>
+          <scope>compile</scope>
+      </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-json</artifactId>
+      <version>3.0.8</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
