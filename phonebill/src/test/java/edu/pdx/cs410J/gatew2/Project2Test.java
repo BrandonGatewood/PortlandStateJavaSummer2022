@@ -1,11 +1,9 @@
 package edu.pdx.cs410J.gatew2;
 
-import edu.pdx.cs410J.InvokeMainTestCase;
 import edu.pdx.cs410J.ParserException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.io.TempDir;
 
-import javax.swing.plaf.FileChooserUI;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * from <code>Project1IT</code> which is an integration test (and can capture data
  * written to {@link System#out} and the like.
  */
-class Project1Test {
+class Project2Test {
   // Unit tests for checkForInputOptions(String[] args)
   @Test
   void checkForInputOptionsREADME0() throws IOException, ParserException {
@@ -28,7 +26,7 @@ class Project1Test {
 
     //WHEN '-README' option is entered
     //THEN output should be: README.txt
-    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    assertThat(Project2.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
   }
 
   @Test
@@ -38,7 +36,7 @@ class Project1Test {
 
     //WHEN '-README' option is entered
     //THEN output should be: README.txt
-    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    assertThat(Project2.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
   }
 
   @Test
@@ -48,7 +46,7 @@ class Project1Test {
 
     //WHEN '-README' option is entered
     //THEN output should be: README.txt
-    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    assertThat(Project2.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
   }
   @Test
   void checkForInputOptionsPrint0() throws IOException, ParserException {
@@ -57,7 +55,7 @@ class Project1Test {
 
     //WHEN '-print' option is entered
     //THEN output should be "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"
-    assertThat(Project1.checkForInputOptions(args), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    assertThat(Project2.checkForInputOptions(args), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
   }
   @Test
   void checkForInputOptionsTextFile0() throws IOException, ParserException {
@@ -66,7 +64,7 @@ class Project1Test {
 
     //WHEN '-textFile' option is entered with no destination file
     //THEN output should be "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
-    assertThat(Project1.checkForInputOptions(args), equalTo("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
+    assertThat(Project2.checkForInputOptions(args), equalTo("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
   }
   @Test
   void checkForInputOptionsTextFile1(@TempDir File tempDir) throws IOException, ParserException {
@@ -77,7 +75,7 @@ class Project1Test {
 
     //WHEN '-textFile' option is entered with a destination file
     //THEN output should be ""
-    assertThat(Project1.checkForInputOptions(args), equalTo(""));
+    assertThat(Project2.checkForInputOptions(args), equalTo(""));
   }
   @Test
   void checkForInputOptionsTextFile2(@TempDir File tempDir) throws IOException, ParserException {
@@ -88,7 +86,7 @@ class Project1Test {
 
     //WHEN '-textFile' and '-print' option is entered
     //THEN output should be "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"
-    assertThat(Project1.checkForInputOptions(args), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    assertThat(Project2.checkForInputOptions(args), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
   }
   @Test
   void checkForInputOptionsTextFile3(@TempDir File tempDir) throws IOException, ParserException {
@@ -111,7 +109,7 @@ class Project1Test {
 
     //WHEN '-textFile' and '-print' option
     //THEN output should be "Brandon's phone bill with 4 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"
-    assertThat(Project1.checkForInputOptions(args), equalTo("Brandon's phone bill with 4 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    assertThat(Project2.checkForInputOptions(args), equalTo("Brandon's phone bill with 4 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
   }
   @Test
   void checkForInputOptionsNoREADMEOrPrintOrTextFile() throws IOException, ParserException {
@@ -120,7 +118,7 @@ class Project1Test {
 
     //WHEN no '-README' or '-print' option is entered
     //THEN output should be ""
-    assertThat(Project1.checkForInputOptions(args), equalTo(""));
+    assertThat(Project2.checkForInputOptions(args), equalTo(""));
   }
 
   // Unit tests for validateArgLength(String[] args, boolean print)
@@ -132,7 +130,7 @@ class Project1Test {
 
     //WHEN 1 command line arguments are included
     //THEN output should be "Missing caller number (nnn-nnn-nnnn)"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Missing caller number (nnn-nnn-nnnn)"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Missing caller number (nnn-nnn-nnnn)"));
   }
   @Test
   void validateArgLength2() throws IOException, ParserException {
@@ -143,7 +141,7 @@ class Project1Test {
 
     //WHEN 2 command line arguments are included
     //THEN output should be "Missing callee number (nnn-nnn-nnnn)"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Missing callee number (nnn-nnn-nnnn)"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Missing callee number (nnn-nnn-nnnn)"));
   }
   @Test
   void validateArgLength3() throws IOException, ParserException {
@@ -155,7 +153,7 @@ class Project1Test {
 
     //WHEN 3 command line arguments are included
     //THEN output should be "Missing beginning date (mm/dd/yyyy)"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Missing beginning date (mm/dd/yyyy)"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Missing beginning date (mm/dd/yyyy)"));
   }
   @Test
   void validateArgLength4() throws IOException, ParserException {
@@ -168,7 +166,7 @@ class Project1Test {
 
     //WHEN 4 command line arguments are included
     //THEN output should be "Missing beginning time (hh:mm)"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Missing beginning time (hh:mm)"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Missing beginning time (hh:mm)"));
   }
   @Test
   void validateArgLength5() throws IOException, ParserException {
@@ -182,7 +180,7 @@ class Project1Test {
 
     //WHEN 5 command line arguments are included
     //THEN output should be "Missing ending date (mm/dd/yyyy)"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Missing ending date (mm/dd/yyyy)"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Missing ending date (mm/dd/yyyy)"));
   }
   @Test
   void validateArgLength6() throws IOException, ParserException {
@@ -197,7 +195,7 @@ class Project1Test {
 
     //WHEN 6 command line arguments are included
     //THEN output should be "Missing ending time (hh:mm)"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Missing ending time (hh:mm)"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Missing ending time (hh:mm)"));
   }
   @Test
   void validateArgLength7() throws IOException, ParserException {
@@ -213,7 +211,7 @@ class Project1Test {
 
     //WHEN 7 command line arguments are included, with print flag = false
     //THEN output should be ""
-    assertThat(Project1.validateArgLength(args, false, null), equalTo(""));
+    assertThat(Project2.validateArgLength(args, false, null), equalTo(""));
 
   }
   @Test
@@ -233,7 +231,7 @@ class Project1Test {
 
     //WHEN 8+ command line arguments are included
     //THEN output should be "Too many arguments"
-    assertThat(Project1.validateArgLength(args, false, ""), equalTo("Too many arguments"));
+    assertThat(Project2.validateArgLength(args, false, ""), equalTo("Too many arguments"));
   }
 
   // Unit tests for validateEachArgument(String[] args, boolean print)
@@ -253,7 +251,7 @@ class Project1Test {
     //THEN caller number must be validated.
     //WHEN caller number argument is invalid
     //THEN output should be "Caller number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCaller1() throws IOException, ParserException {
@@ -271,7 +269,7 @@ class Project1Test {
     //THEN caller number must be validated.
     //WHEN caller number argument is invalid
     //THEN output should be "Caller number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCaller2() throws IOException, ParserException {
@@ -289,7 +287,7 @@ class Project1Test {
     //THEN caller number must be validated.
     //WHEN caller number argument is invalid
     //THEN output should be "Caller number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCaller3() throws IOException, ParserException {
@@ -307,7 +305,7 @@ class Project1Test {
     //THEN caller number must be validated.
     //WHEN caller number argument is invalid
     //THEN output should be "Caller number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCaller4() throws IOException, ParserException {
@@ -325,7 +323,7 @@ class Project1Test {
     //THEN caller number must be validated.
     //WHEN caller number argument is invalid
     //THEN output should be "Caller number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Caller number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCallee0() throws IOException, ParserException {
@@ -343,7 +341,7 @@ class Project1Test {
     //THEN callee number must be validated.
     //WHEN callee number argument is invalid
     //THEN output should be "Callee number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCallee1() throws IOException, ParserException {
@@ -361,7 +359,7 @@ class Project1Test {
     //THEN callee number must be validated.
     //WHEN callee number argument is invalid
     //THEN output should be "Callee number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCallee2() throws IOException, ParserException {
@@ -379,7 +377,7 @@ class Project1Test {
     //THEN callee number must be validated.
     //WHEN callee number argument is invalid
     //THEN output should be "Callee number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCallee3() throws IOException, ParserException {
@@ -397,7 +395,7 @@ class Project1Test {
     //THEN callee number must be validated.
     //WHEN callee number argument is invalid
     //THEN output should be "Callee number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentCallee4() throws IOException, ParserException {
@@ -415,7 +413,7 @@ class Project1Test {
     //THEN callee number must be validated.
     //WHEN callee number argument is invalid
     //THEN output should be "Callee number can only be in the format: nnn-nnn-nnnn"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Callee number can only be in the format: nnn-nnn-nnnn"));
   }
   @Test
   void validateEachArgumentBeginDate0() throws IOException, ParserException {
@@ -433,7 +431,7 @@ class Project1Test {
     //THEN beginning date must be validated.
     //WHEN beginning date argument is invalid
     //THEN output should be "Beginning date can only be in the format: mm/dd/yyyy"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Beginning date can only be in the format: mm/dd/yyyy"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Beginning date can only be in the format: mm/dd/yyyy"));
   }
 
   @Test
@@ -452,7 +450,7 @@ class Project1Test {
     //THEN beginning date must be validated.
     //WHEN beginning date argument is invalid
     //THEN output should be "Beginning date can only be in the format: mm/dd/yyyy"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Beginning date can only be in the format: mm/dd/yyyy"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Beginning date can only be in the format: mm/dd/yyyy"));
   }
   @Test
   void validateEachArgumentBeginTime0() throws IOException, ParserException {
@@ -470,7 +468,7 @@ class Project1Test {
     //THEN beginning time must be validated.
     //WHEN beginning time argument is invalid
     //THEN output should be "Beginning time can only be in the format: hh:mm"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Beginning time can only be in the format: hh:mm"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Beginning time can only be in the format: hh:mm"));
   }
   @Test
   void validateEachArgumentBeginTime1() throws IOException, ParserException {
@@ -488,7 +486,7 @@ class Project1Test {
     //THEN beginning time must be validated.
     //WHEN beginning time argument is invalid
     //THEN output should be "Beginning time can only be in the format: hh:mm"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Beginning time can only be in the format: hh:mm"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Beginning time can only be in the format: hh:mm"));
   }
   @Test
   void validateEachArgumentEndDate0() throws IOException, ParserException {
@@ -506,7 +504,7 @@ class Project1Test {
     //THEN ending date must be validated.
     //WHEN ending date argument is invalid
     //THEN output should be "Ending date can only be in the format: mm/dd/yyyy"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Ending date can only be in the format: mm/dd/yyyy"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Ending date can only be in the format: mm/dd/yyyy"));
   }
   @Test
   void validateEachArgumentEndDate1() throws IOException, ParserException {
@@ -524,7 +522,7 @@ class Project1Test {
     //THEN ending date must be validated.
     //WHEN ending date argument is invalid
     //THEN output should be "Ending date can only be in the format: mm/dd/yyyy"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Ending date can only be in the format: mm/dd/yyyy"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Ending date can only be in the format: mm/dd/yyyy"));
   }
   @Test
   void validateEachArgumentEndTime0() throws IOException, ParserException {
@@ -542,7 +540,7 @@ class Project1Test {
     //THEN ending time must be validated.
     //WHEN ending time argument is invalid
     //THEN output should be "Ending time can only be in the format: hh:mm"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Ending time can only be in the format: hh:mm"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Ending time can only be in the format: hh:mm"));
   }
   @Test
   void validateEachArgumentEndTime1() throws IOException, ParserException {
@@ -560,7 +558,7 @@ class Project1Test {
     //THEN ending time must be validated.
     //WHEN ending time argument is invalid
     //THEN output should be "Ending time can only be in the format: hh:mm"
-    assertThat(Project1.validateEachArgument(args, false, ""), equalTo("Ending time can only be in the format: hh:mm"));
+    assertThat(Project2.validateEachArgument(args, false, ""), equalTo("Ending time can only be in the format: hh:mm"));
   }
 
   // Unit tests for phoneBill(String[] args, boolean print)
@@ -571,7 +569,7 @@ class Project1Test {
 
     //WHEN arguments have passed validation, and print flag = false
     //THEN output should be: ""
-    assertThat(Project1.phoneBill(args, false, null), equalTo(""));
+    assertThat(Project2.phoneBill(args, false, null), equalTo(""));
   }
 
   @Test
@@ -581,7 +579,7 @@ class Project1Test {
 
     //WHEN arguments have passed validation, and print flag = true
     //THEN output should be: "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 to 2:21"
-    assertThat(Project1.phoneBill(args, true, null), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    assertThat(Project2.phoneBill(args, true, null), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
   }
   @Test
   void phoneBillEmptyFile(@TempDir File tempDir) throws ParserException, IOException {
@@ -590,7 +588,7 @@ class Project1Test {
     File textFile = new File(tempDir, "emptyFile.txt");
     //WHEN arguments have passed validation, and a file path is given
     //THEN output should be: "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 to 2:21"
-    assertThat(Project1.phoneBill(args, true, String.valueOf(textFile)), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    assertThat(Project2.phoneBill(args, true, String.valueOf(textFile)), equalTo("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
   }
   @Test
   void phoneBillFilledFile(@TempDir File tempDir) throws ParserException, IOException {
@@ -613,6 +611,6 @@ class Project1Test {
 
     //WHEN arguments have passed validation, and a file path is given
     //THEN output should be: "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 to 2:21"
-    assertThat(Project1.phoneBill(args, true, String.valueOf(textFile)), equalTo("Brandon's phone bill with 4 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
+    assertThat(Project2.phoneBill(args, true, String.valueOf(textFile)), equalTo("Brandon's phone bill with 4 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/1979 2:21 to 1/1/1979 5:03"));
   }
 }

@@ -10,7 +10,7 @@ import java.util.Arrays;
 /**
  * The main class for the CS410J Phone Bill Project
  */
-public class Project1 {
+public class Project2 {
   /**
    * Prints out error messages or information about customer
    * and their <code>PhoneBill</code>.
@@ -56,7 +56,7 @@ public class Project1 {
       // If '-README' option is given, then print README.txt.
       if(str.equals("-README")) {
         try (
-                InputStream readme = Project1.class.getResourceAsStream("README.txt")
+                InputStream readme = Project2.class.getResourceAsStream("README.txt")
         ) {
             assert readme != null;
             BufferedReader reader = new BufferedReader(new InputStreamReader(readme));
