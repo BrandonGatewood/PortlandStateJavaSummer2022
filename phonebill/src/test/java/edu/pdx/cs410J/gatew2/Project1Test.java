@@ -28,7 +28,7 @@ class Project1Test {
 
     //WHEN '-README' option is entered
     //THEN output should be: README.txt
-    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
   }
 
   @Test
@@ -38,7 +38,7 @@ class Project1Test {
 
     //WHEN '-README' option is entered
     //THEN output should be: README.txt
-    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
   }
 
   @Test
@@ -48,7 +48,7 @@ class Project1Test {
 
     //WHEN '-README' option is entered
     //THEN output should be: README.txt
-    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+    assertThat(Project1.checkForInputOptions(args), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
   }
   @Test
   void checkForInputOptionsPrint0() throws IOException, ParserException {

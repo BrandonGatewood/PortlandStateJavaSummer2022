@@ -13,15 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TextParserTest {
 
   @Test
-  void validTextFileCanBeParsedAbsolutePath() throws ParserException, FileNotFoundException {
-    InputStream in = new FileInputStream("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/test/resources/edu/pdx/cs410J/gatew2/valid-phonebill.txt");
-    assertThat(in, notNullValue());
-
-    TextParser parser = new TextParser(new InputStreamReader(in));
-    PhoneBill bill = parser.parse();
-    assertThat(bill.getCustomer(), equalTo("Test Phone Bill"));
-  }
-  @Test
   void validTextFileCanBeParsedCurrentDirectoryPath() throws ParserException, FileNotFoundException {
     InputStream in = new FileInputStream("valid-phonebill.txt");
     assertThat(in, notNullValue());
@@ -38,15 +29,6 @@ public class TextParserTest {
     TextParser parser = new TextParser(new InputStreamReader(in));
     PhoneBill bill = parser.parse();
     assertThat(bill.getCustomer(), equalTo("Test Phone Bill"));
-  }
-
-  @Test
-  void invalidTextFileThrowsParserExceptionAbsolutePath() throws FileNotFoundException {
-    InputStream in = new FileInputStream("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/test/resources/edu/pdx/cs410J/gatew2/empty-phonebill.txt");
-    assertThat(in, notNullValue());
-
-    TextParser parser = new TextParser(new InputStreamReader(in));
-    assertThrows(ParserException.class, parser::parse);
   }
   @Test
   void invalidTextFileThrowsParserExceptionCurrentDirectoryPath() throws FileNotFoundException {
