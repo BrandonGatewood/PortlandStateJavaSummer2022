@@ -56,8 +56,7 @@ class Project1IT extends InvokeMainTestCase {
 
         //WHEN '-README' option is entered
         //THEN output should be: README.txt
-        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
-        //assertThat(result.getTextWrittenToStandardError(), containsString("Brandon Gatewood\nProject 1\n\nThis project represents a phone bill application. It keeps track of a customer and their phone calls. Each phone call is saved into a list for their phone bill.\n\nTo use run this project on the command, all args are mandatory:\njava -jar target/phonebill-2022.0.0.jar [options] <args>\n\noptions:\n-print, -README\n\nargs:\ncustomer, caller number, callee number, begin date, begin time, end date, end time.\n"));
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
     @Test
     void testReadMeOption1() throws IOException {
@@ -66,7 +65,7 @@ class Project1IT extends InvokeMainTestCase {
 
         //WHEN a '-print' option is entered before the '-README' option
         //THEN output should be: README.txt
-        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
     @Test
     void testReadMeOption2() throws IOException {
@@ -75,7 +74,7 @@ class Project1IT extends InvokeMainTestCase {
 
         //WHEN a '-README' option is entered
         //THEN output should be: README.txt
-        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
     @Test
     void testTextFileOption0() {
@@ -154,7 +153,7 @@ class Project1IT extends InvokeMainTestCase {
 
         //WHEN ALL options are entered
         //THEN output should be: README.txt
-        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("/Users/brandongatewood/Desktop/Summer 2022/PortlandStateJavaSummer2022/phonebill/src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
+        assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
 
     /**
