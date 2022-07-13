@@ -20,7 +20,7 @@ public class Project1 {
   public static void main(String[] args) throws IOException, ParserException {
       if(args.length == 0) {
           String message = "Please include command line arguments. [options] <args>.";
-          String options = "Options include: '-README', '-print', and \"'-textFile' '.txt'\".";
+          String options = "Options include: '-README', '-print', and \"'-textFile' '.txt'\". NOTE: Each Customer will have their own .txt file and will not check if each customer name in the file are the same.";
           String cmdLineArgs = "Args must be in the order: customer name, caller number (nnn-nnn-nnnn), callee number (nnn-nnn-nnnn), begin date (dd/dd/dddd), begin time (dd:dd), end date (dd/dd/dddd), and end time (dd:dd).";
           // No arguments entered, so display a "how to use" message.
           System.err.println(message + "\n" + options + "\n" + cmdLineArgs);
@@ -33,9 +33,18 @@ public class Project1 {
 
   /**
    * Checks if any options were given as an argument.
-   * Program ends if '-README' option is given.
-   * Program will print the new <code>PhoneBill</code> and
-   * <code>PhoneCall</code> if '-print' option is given.
+   *
+   * If '-README' option is given, then the program ends.
+   *
+   * If "'-textFile' '.txt'" option is given, then the program
+   * will parse the .txt file, create a <code>PhoneBill</code>,
+   * add the new <code>PhoneCall</code> given from the command line
+   * into the new <code>PhoneBill</code>, and then dump the <code>PhoneBill</code>
+   * and <code>PhoneCall</code>s back into the .txt file.
+   *
+   * If '-print' option is given, then the program will
+   * will print the new <code>PhoneBill</code> and
+   * <code>PhoneCall</code>.
    *
    * @param args
    *        An array of <code>String</code> containing command line arguments
@@ -214,6 +223,12 @@ public class Project1 {
    * Create a <code>PhoneBill</code> and <code>PhoneCall</code>
    * object with appropriate arguments. Then insert the new
    * phone call into the customers phone bill.
+   *
+   * If 'print' flag is true, then it will print the customers phone bill and phone call(s).
+   *
+   * if filePath is not null, then it will parse the text file, create a new <code>PhoneBill</code>,
+   * insert the new <code>PhoneCall</code>, and dump the <code>PhoneBill</code> information back into
+   * the filePath.
    *
    * @param args
    *        An array of <code>String</code> containing command line arguments

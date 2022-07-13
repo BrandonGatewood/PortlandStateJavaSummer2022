@@ -7,9 +7,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
+/**
+ * Parses <code>PhoneBill</code> and <code>PhoneCall</code> information from
+ * an external .txt file.
+ */
 public class TextParser implements PhoneBillParser<PhoneBill> {
   private final Reader reader;
 
+  /**
+   * Assigns passed in <code>Reader</code> to <code>TextParser</code>'s <code>Reader</code>.
+   * @param reader
+   *        Contains reading information for the given .txt file.
+   */
   public TextParser(Reader reader) {
     this.reader = reader;
   }

@@ -30,7 +30,7 @@ class Project1IT extends InvokeMainTestCase {
   @Test
   void testNoCommandLineArguments() {
     String message = "Please include command line arguments. [options] <args>.";
-    String options = "Options include: '-README', '-print', and \"'-textFile' '.txt'\".";
+    String options = "Options include: '-README', '-print', and \"'-textFile' '.txt'\". NOTE: Each Customer will have their own .txt file and will not check if each customer name in the file are the same.";
     String cmdLineArgs = "Args must be in the order: customer name, caller number (nnn-nnn-nnnn), callee number (nnn-nnn-nnnn), begin date (dd/dd/dddd), begin time (dd:dd), end date (dd/dd/dddd), and end time (dd:dd).";
 
     MainMethodResult result = invokeMain(Project1.class);

@@ -8,9 +8,18 @@ import java.io.*;
 import java.util.Collection;
 import java.util.Vector;
 
+/**
+ * Dumps <code>PhoneBill</code> and <code>PhoneCall</code>
+ * information into an external .txt file.
+ */
 public class TextDumper implements PhoneBillDumper<PhoneBill> {
   private final Writer writer;
 
+  /**
+   * Assigns passed in <code>Writer</code> to <code>TextDumper</code>'s <code>Writer</code>.
+   * @param writer
+   *        Contains writing information for the given .txt file.
+   */
   public TextDumper(Writer writer) {
     this.writer = writer;
   }

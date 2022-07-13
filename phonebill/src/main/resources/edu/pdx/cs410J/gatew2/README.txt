@@ -15,6 +15,8 @@ java -jar target/phonebill-2022.0.0.jar [options] <args>
     '-README' option will display the README file for this project.
     "'-textFile' '.txt'" option will parse through the given '.txt' file, create a new phone bill for the given customer, then add all calls from the given .txt file and the command line. It will then write back to the .txt with the new phone call.
 
+     NOTE: Each Customer will have their own .txt file and will not check if each customer name in the file are the same.
+
 <args> must be entered in order:
     customer name, caller number (nnn-nnn-nnnn), callee number (nnn-nnn-nnnn), begin date (dd/dd/dddd), begin time (dd:dd), end date (dd/dd/dddd), and end time (dd:dd).
 
