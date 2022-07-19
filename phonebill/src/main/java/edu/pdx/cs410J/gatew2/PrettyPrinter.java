@@ -1,9 +1,7 @@
 package edu.pdx.cs410J.gatew2;
 
-import edu.pdx.cs410J.AbstractPhoneBill;
 import edu.pdx.cs410J.PhoneBillDumper;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.text.ParseException;
@@ -41,7 +39,7 @@ public class PrettyPrinter implements PhoneBillDumper<PhoneBill> {
 
             // Customer has no PhoneCalls
             if(!phoneCalls.isEmpty()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, h:mm", Locale.US);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, hh:mm", Locale.US);
 
                 // Get the customers name
                 pw.println("Customer: " + bill.getCustomer());
@@ -65,7 +63,7 @@ public class PrettyPrinter implements PhoneBillDumper<PhoneBill> {
             }
             pw.flush();
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            System.out.println("ERROR, failed or interrupted I/O operation.");
         }
     }
 }

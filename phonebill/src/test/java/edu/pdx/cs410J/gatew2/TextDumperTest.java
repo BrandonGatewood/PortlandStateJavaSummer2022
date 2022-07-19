@@ -42,9 +42,9 @@ public class TextDumperTest {
   void testingDumpCurrentDirectoryPath() throws IOException, ParserException {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/4432 1:30", "2/34/4323 1:30");
-    PhoneCall call2 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/4432 1:30", "2/34/4323 1:30");
-    PhoneCall call3 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/4432 1:30", "2/34/4323 1:30");
+    PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:50 pm");
+    PhoneCall call2 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2014 2:30 pm", "2/23/2014 3:30 pm");
+    PhoneCall call3 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2014 3:30 pm", "2/23/2014 5:30 pm");
 
     bill.addPhoneCall(call1);
     bill.addPhoneCall(call2);
@@ -62,9 +62,9 @@ public class TextDumperTest {
   void testingDumpSubDirectoryPath() throws IOException, ParserException {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall call1 = new PhoneCall("808-364-4323", "905-234-4323", "2/23/4432 1:30", "2/34/4323 1:30");
-    PhoneCall call2 = new PhoneCall("808-314-4323", "905-234-4323", "2/23/4432 1:30", "2/34/4323 1:30");
-    PhoneCall call3 = new PhoneCall("808-924-4323", "905-234-4323", "2/23/4432 1:30", "2/34/4323 1:30");
+    PhoneCall call1 = new PhoneCall("808-364-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:30 pm");
+    PhoneCall call2 = new PhoneCall("808-314-4323", "905-234-4323", "2/23/2015 1:30 pm", "2/23/2015 1:45 pm");
+    PhoneCall call3 = new PhoneCall("808-924-4323", "905-234-4323", "2/23/2015 7:30 pm", "2/23/2015 7:50 pm");
 
     bill.addPhoneCall(call1);
     bill.addPhoneCall(call2);
@@ -77,6 +77,26 @@ public class TextDumperTest {
     TextParser parser = new TextParser(new FileReader(textFile));
     PhoneBill read = parser.parse();
     assertThat(read.getCustomer(), equalTo(customer));
+  }
+  @Test
+  void testingBadDates() throws IOException, ParserException {
+    String customer = "Test Phone Bill";
+    PhoneBill bill = new PhoneBill(customer);
+    PhoneCall call1 = new PhoneCall("808-364-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:30 pm");
+    PhoneCall call2 = new PhoneCall("808-314-4323", "905-234-4323", "2/23/2015 1:30 pm", "2/23/2015 1:45 pm");
+    PhoneCall call3 = new PhoneCall("808-924-4323", "905-234-4323", "2/23/2015 7:30 pm", "2/23/2015 7:00 pm");
+
+    bill.addPhoneCall(call1);
+    bill.addPhoneCall(call2);
+    bill.addPhoneCall(call3);
+    File textFile = new File("src/test/resources/edu/pdx/cs410J/gatew2/valid-phonebill.txt");
+
+    TextDumper dumper = new TextDumper(new FileWriter(textFile));
+    dumper.dump(bill);
+
+    TextParser parser = new TextParser(new FileReader(textFile));
+    PhoneBill read = parser.parse();
+    assertThat(read.getCustomer(), equalTo("File cannot be parsed.. Call end time cannot be before begin time."));
   }
 }
 

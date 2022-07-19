@@ -1,11 +1,10 @@
 package edu.pdx.cs410J.gatew2;
 
 import com.google.common.annotations.VisibleForTesting;
-import edu.pdx.cs410J.AppointmentBookDumper;
 import edu.pdx.cs410J.PhoneBillDumper;
 
-import java.io.*;
-import java.util.Collection;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Vector;
 
 /**

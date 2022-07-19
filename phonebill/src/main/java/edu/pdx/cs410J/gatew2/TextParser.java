@@ -1,11 +1,14 @@
 package edu.pdx.cs410J.gatew2;
 
-import edu.pdx.cs410J.ParserException;
 import edu.pdx.cs410J.PhoneBillParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Parses <code>PhoneBill</code> and <code>PhoneCall</code> information from
@@ -29,11 +32,9 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
    * <code>PhoneCall</code>'s.
    * @return
    *        Returns a <code>PhoneBill</code> object.
-   * @throws ParserException
-   *        Throws a ParserException if customer is null.
    */
   @Override
-  public PhoneBill parse() throws ParserException {
+  public PhoneBill parse() {
     try (
       BufferedReader br = new BufferedReader(this.reader)
     ) {
@@ -44,12 +45,10 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
       String toParse = br.readLine();
 
       if(toParse == null || toParse.isBlank()) {
-        PhoneBill bill = new PhoneBill("MISSING CUSTOMER NAME!!");
-        return bill;
+        return new PhoneBill("MISSING CUSTOMER NAME!!");
       }
       else if(!toParse.contains(";")){
-        PhoneBill bill = new PhoneBill("The .txt file is formatted incorrectly. The correct format: customer;caller;callee;begin;end;");
-        return bill;
+        return new PhoneBill("The .txt file is formatted incorrectly. The correct format: customer;caller;callee;begin;end;");
       }
       else  {
         int i = toParse.indexOf(';');
@@ -70,8 +69,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
             String canParse = validateParsing(callerNumber, calleeNumber, begin, end);
 
             if(!canParse.equals("FILE CAN BE PARSED")) {
-              PhoneBill errorBill = new PhoneBill(canParse);
-              return errorBill;
+              return new PhoneBill(canParse);
             }
             PhoneCall call = new PhoneCall(callerNumber, calleeNumber, begin, end);
             bill.addPhoneCall(call);
@@ -80,9 +78,8 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
         }
         return bill;
       }
-    } catch (IOException e) {
-      PhoneBill bill = new PhoneBill("The .txt file is formatted incorrectly. The correct format: customer;caller;callee;begin;end;");
-      return bill;
+    } catch (IOException | ParseException e) {
+      return new PhoneBill("The .txt file is formatted incorrectly. The correct format: customer;caller;callee;begin;end;");
     }
   }
 
@@ -95,11 +92,11 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
    * @param callee
    *        The callee's phone number
    * @param begin
-   *        The beginning time and date of the phone call.
+   *        The beginning time and date of the phone call
    * @param end
-   *        The ending time and date of the phone call.
+   *        The ending time and date of the phone call
    */
-  public String validateParsing(String caller, String callee, String begin, String end) {
+  public String validateParsing(String caller, String callee, String begin, String end) throws ParseException {
     String parsed = "File cannot be parsed.. ";
 
     // Validate caller number
@@ -122,6 +119,16 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
     else if(!end.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{2}), ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (AM|PM))")) {
       // Incorrect format
       return parsed + "Ending date can only be in the format: mm/dd/yy, hh:mm AM/PM.";
+    }
+
+    // Check if end date is before begin date.
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, hh:mm", Locale.US);
+
+    Date dateBegin = sdf.parse(begin);
+    Date dateEnd = sdf.parse(end);
+
+    if(dateBegin.compareTo(dateEnd) > 0) {
+      return parsed + "Call end time cannot be before begin time.";
     }
     return "FILE CAN BE PARSED";
   }

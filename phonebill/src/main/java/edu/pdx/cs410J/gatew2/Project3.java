@@ -1,11 +1,14 @@
 package edu.pdx.cs410J.gatew2;
 
 import com.google.common.annotations.VisibleForTesting;
-import edu.pdx.cs410J.ParserException;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * The main class for the CS410J Phone Bill Project
@@ -17,7 +20,7 @@ public class Project3 {
    * @param args
    *        command line arguments
    */
-  public static void main(String[] args) throws IOException, ParserException {
+  public static void main(String[] args) throws IOException, ParseException {
       if(args.length == 0) {
           String usage = "Usage: java -jar target/phonebill-2022.0.0.jar [-README] [-print] [-textFile file] [-pretty file] customer caller callee beginDate beginTime am/pm endDate endTime am/pm\n";
           String option1 = "\t-README: Prints a README for this project and exits\n";
@@ -53,7 +56,7 @@ public class Project3 {
    *        An array of <code>String</code> containing command line arguments
    */
   @VisibleForTesting
-  static String checkForInputOptions(String[] args) throws IOException, ParserException {
+  static String checkForInputOptions(String[] args) throws IOException, ParseException {
     // Loop through args and check if README option was given
     for(String str:args) {
       // If '-README' option is given, then print README.txt.
@@ -148,7 +151,7 @@ public class Project3 {
    *        Contains the file to a .txt file to pretty print
    */
   @VisibleForTesting
-  static String validateArgLength(ArrayList<String> args, boolean print, String filePath, String prettyPath) throws IOException, ParserException {
+  static String validateArgLength(ArrayList<String> args, boolean print, String filePath, String prettyPath) throws IOException, ParseException {
     // Ignored args.length == 0, because main checked it before
     // calling checkForInputOptions method.
     if(args.size() == 1) {
@@ -203,7 +206,7 @@ public class Project3 {
    *        Contains the file to a .txt file to pretty print
    */
 @VisibleForTesting
- static String validateEachArgument(ArrayList<String> args, boolean print, String filePath, String prettyPath) throws IOException, ParserException {
+ static String validateEachArgument(ArrayList<String> args, boolean print, String filePath, String prettyPath) throws IOException, ParseException {
     String customer = args.get(0);
     String callerNumber = args.get(1);
     String calleeNumber = args.get(2);
@@ -259,6 +262,17 @@ public class Project3 {
         // Append date and time substrings
         String begin = args.get(3) + " " + args.get(4) + " " + args.get(5);
         String end = args.get(6) + " " + args.get(7) + " " + args.get(8);
+
+        // Check if end date is before begin date.
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.US);
+
+        Date dateBegin = sdf.parse(begin);
+        Date dateEnd = sdf.parse(end);
+
+        if(dateBegin.compareTo(dateEnd) > 0) {
+            return "Call end time cannot be before begin time.";
+        }
+
         String[] newArgs = {customer, callerNumber, calleeNumber, begin, end};
 
         //create new phone bill
@@ -287,7 +301,7 @@ public class Project3 {
    *        Contains the file to a .txt file to pretty print
    */
   @VisibleForTesting
-  static String phoneBill(String[] args, boolean print, String filePath, String prettyPath) throws IOException, ParserException {
+  static String phoneBill(String[] args, boolean print, String filePath, String prettyPath) throws IOException {
     PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);
     PhoneBill bill = new PhoneBill(args[0]);
     bill.addPhoneCall(call);

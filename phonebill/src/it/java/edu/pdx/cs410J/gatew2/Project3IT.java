@@ -158,7 +158,7 @@ class Project3IT extends InvokeMainTestCase {
         assertThat(result.getTextWrittenToStandardError(), containsString(String.valueOf(Files.readString(Path.of("src/main/resources/edu/pdx/cs410J/gatew2/README.txt")))));
     }
     @Test
-    void testEmptyPrintPretty(@TempDir File tempDir) throws IOException {
+    void testEmptyPrintPretty(@TempDir File tempDir) {
         File textFile = new File(tempDir, "apptbook.txt");
         //GIVEN that ALL options are entered
         MainMethodResult result = invokeMain(Project3.class, "-pretty", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
