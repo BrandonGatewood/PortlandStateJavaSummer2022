@@ -1,6 +1,5 @@
 package edu.pdx.cs410J.gatew2;
 
-import edu.pdx.cs410J.ParserException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -26,7 +25,7 @@ public class TextDumperTest {
   }
 
   @Test
-  void canParseTextWrittenByTextDumper(@TempDir File tempDir) throws IOException, ParserException {
+  void canParseTextWrittenByTextDumper(@TempDir File tempDir) throws IOException {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
 
@@ -39,7 +38,7 @@ public class TextDumperTest {
     assertThat(read.getCustomer(), equalTo(customer));
   }
   @Test
-  void testingDumpCurrentDirectoryPath() throws IOException, ParserException {
+  void testingDumpCurrentDirectoryPath() throws IOException {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
     PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:50 pm");
@@ -59,7 +58,7 @@ public class TextDumperTest {
     assertThat(read.getCustomer(), equalTo(customer));
   }
   @Test
-  void testingDumpSubDirectoryPath() throws IOException, ParserException {
+  void testingDumpSubDirectoryPath() throws IOException {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
     PhoneCall call1 = new PhoneCall("808-364-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:30 pm");
@@ -79,7 +78,7 @@ public class TextDumperTest {
     assertThat(read.getCustomer(), equalTo(customer));
   }
   @Test
-  void testingBadDates() throws IOException, ParserException {
+  void testingBadDates() throws IOException {
     String customer = "Test Phone Bill";
     PhoneBill bill = new PhoneBill(customer);
     PhoneCall call1 = new PhoneCall("808-364-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:30 pm");

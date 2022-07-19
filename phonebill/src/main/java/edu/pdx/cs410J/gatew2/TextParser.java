@@ -65,12 +65,12 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
             end = phoneCallInformation[4];
 
             // Validate each String
-
             String canParse = validateParsing(callerNumber, calleeNumber, begin, end);
 
             if(!canParse.equals("FILE CAN BE PARSED")) {
               return new PhoneBill(canParse);
             }
+
             PhoneCall call = new PhoneCall(callerNumber, calleeNumber, begin, end);
             bill.addPhoneCall(call);
           }
@@ -110,19 +110,19 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
       return parsed + "Callee number can only be in the format: nnn-nnn-nnnn.";
     }
     // Validate begin date
-    else if(!begin.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{2}), ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (AM|PM))")) {
+    else if(!begin.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{4}) ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (am|AM|pm|PM))")) {
 
       // Incorrect format
-      return parsed + "Beginning date can only be in the format: mm/dd/yy, hh:mm AM/PM.";
+      return parsed + "Beginning date can only be in the format: mm/dd/yyyy hh:mm am/pm.";
     }
     // Validate end date
-    else if(!end.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{2}), ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (AM|PM))")) {
+    else if(!end.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{4}) ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (am|AM|pm|PM))")) {
       // Incorrect format
-      return parsed + "Ending date can only be in the format: mm/dd/yy, hh:mm AM/PM.";
+      return parsed + "Ending date can only be in the format: mm/dd/yyyy hh:mm am/pm.";
     }
 
     // Check if end date is before begin date.
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, hh:mm", Locale.US);
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.US);
 
     Date dateBegin = sdf.parse(begin);
     Date dateEnd = sdf.parse(end);

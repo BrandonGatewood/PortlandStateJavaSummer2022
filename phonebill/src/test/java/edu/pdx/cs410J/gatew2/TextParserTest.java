@@ -1,19 +1,20 @@
 package edu.pdx.cs410J.gatew2;
 
-import edu.pdx.cs410J.ParserException;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TextParserTest {
 
   @Test
-  void validTextFileCanBeParsedCurrentDirectoryPath() throws ParserException, FileNotFoundException {
+  void validTextFileCanBeParsedCurrentDirectoryPath() throws FileNotFoundException {
     InputStream in = new FileInputStream("valid-phonebill.txt");
     assertThat(in, notNullValue());
 
@@ -22,7 +23,7 @@ public class TextParserTest {
     assertThat(bill.getCustomer(), equalTo("Test Phone Bill"));
   }
   @Test
-  void validTextFileCanBeParsedSubDirectoryPath() throws ParserException, FileNotFoundException {
+  void validTextFileCanBeParsedSubDirectoryPath() throws FileNotFoundException {
     InputStream in = new FileInputStream("src/test/resources/edu/pdx/cs410J/gatew2/valid-phonebill.txt");
     assertThat(in, notNullValue());
 
@@ -31,7 +32,7 @@ public class TextParserTest {
     assertThat(bill.getCustomer(), equalTo("Test Phone Bill"));
   }
   @Test
-  void invalidTextFileCurrentDirectoryPath() throws FileNotFoundException, ParserException {
+  void invalidTextFileCurrentDirectoryPath() throws FileNotFoundException {
     InputStream in = new FileInputStream("empty-phonebill.txt");
     assertThat(in, notNullValue());
 
@@ -41,7 +42,7 @@ public class TextParserTest {
   }
 
   @Test
-  void invalidTextFileSubDirectoryPath() throws FileNotFoundException, ParserException {
+  void invalidTextFileSubDirectoryPath() throws FileNotFoundException {
     InputStream in = new FileInputStream("src/test/resources/edu/pdx/cs410J/gatew2/empty-phonebill.txt");
     assertThat(in, notNullValue());
 

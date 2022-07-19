@@ -48,8 +48,8 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
         for (PhoneCall phoneCall : phoneCalls) {
           String callerNumber = phoneCall.getCaller();
           String calleeNumber = phoneCall.getCallee();
-          String begin = phoneCall.getBeginTimeString();
-          String end = phoneCall.getEndTimeString();
+          String begin = phoneCall.getBeginTimeStringForTextFiles();
+          String end = phoneCall.getEndTimeStringForTextFiles();
 
           pw.println(bill.getCustomer() + ";" + callerNumber + ";" + calleeNumber + ";" + begin + ";" + end + ";");
         }

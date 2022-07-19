@@ -1,16 +1,18 @@
 package edu.pdx.cs410J.gatew2;
 
-import edu.pdx.cs410J.ParserException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -1055,9 +1057,9 @@ class Project3Test {
   void phoneBillFilledFile1(@TempDir File tempDir) throws IOException {
     String customer = "Brandon";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:35");
-    PhoneCall call2 = new PhoneCall("808-324-4323", "905-234-4323", "2/24/2014 1:30 pm", "2/24/2014 1:35");
-    PhoneCall call3 = new PhoneCall("808-324-4323", "905-234-4323", "2/25/2014 1:30 pm", "2/25/2014 1:35");
+    PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2014 1:30 pm", "2/23/2014 1:35 pm");
+    PhoneCall call2 = new PhoneCall("808-324-4323", "905-234-4323", "2/24/2014 1:30 pm", "2/24/2014 1:35 pm");
+    PhoneCall call3 = new PhoneCall("808-324-4323", "905-234-4323", "2/25/2014 1:30 pm", "2/25/2014 1:35 pm");
 
     bill.addPhoneCall(call1);
     bill.addPhoneCall(call2);
@@ -1078,9 +1080,9 @@ class Project3Test {
   void phoneBillFilledFile2(@TempDir File tempDir) throws IOException {
     String customer = "Brandon";
     PhoneBill bill = new PhoneBill(customer);
-    PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2015 1:30", "2/23/2015 1:60");
-    PhoneCall call2 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2016 1:30", "2/23/2016 1:60");
-    PhoneCall call3 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2017 1:30", "2/23/2017 1:60");
+    PhoneCall call1 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2015 1:30 pm", "2/23/2015 1:60 pm");
+    PhoneCall call2 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2016 1:30 pm", "2/23/2016 1:60 pm");
+    PhoneCall call3 = new PhoneCall("808-324-4323", "905-234-4323", "2/23/2017 1:30 pm", "2/23/2017 1:60 pm");
 
     bill.addPhoneCall(call1);
     bill.addPhoneCall(call2);
@@ -1118,12 +1120,12 @@ class Project3Test {
     File textFile = new File(tempDir, "emptyFile.txt");
 
     FileWriter writer = new FileWriter(textFile);
-    writer.write("Brandon;808-224-1234;808-324-6789;12/32/2012 1:30 pm;12/31/2012 1:35 pm");
+    writer.write("Brandon;808-224-1234;808-324-6789;12/323/2012 1:30 pm;12/32/2012 1:35 pm");
     writer.close();
 
     // WHEN the textFile is formatted incorrectly
-    // THEN output should be: "File cannot be parsed.. Beginning date can only be in the format: mm/dd/yy, hh:mm AM/PM."
-    assertThat(Project3.phoneBill(args, true, String.valueOf(textFile), null), equalTo("File cannot be parsed.. Beginning date can only be in the format: mm/dd/yy, hh:mm AM/PM."));
+    // THEN output should be: "File cannot be parsed.. Beginning date can only be in the format: mm/dd/yyyy hh:mm am/pm."
+    assertThat(Project3.phoneBill(args, true, String.valueOf(textFile), null), equalTo("File cannot be parsed.. Beginning date can only be in the format: mm/dd/yyyy hh:mm am/pm."));
   }
   @Test
   void phoneBillTextFileIncorrectFile2(@TempDir File tempDir) throws IOException {
@@ -1136,8 +1138,8 @@ class Project3Test {
     writer.close();
 
     // WHEN the textFile is formatted incorrectly
-    // THEN output should be: "File cannot be parsed.. Beginning date can only be in the format: mm/dd/yy, hh:mm AM/PM."
-    assertThat(Project3.phoneBill(args, true, String.valueOf(textFile), null), equalTo("File cannot be parsed.. Beginning date can only be in the format: mm/dd/yy, hh:mm AM/PM."));
+    // THEN output should be: "File cannot be parsed.. Beginning date can only be in the format: mm/dd/yyyy hh:mm am/pm."
+    assertThat(Project3.phoneBill(args, true, String.valueOf(textFile), null), equalTo("File cannot be parsed.. Beginning date can only be in the format: mm/dd/yyyy hh:mm am/pm."));
   }
   @Test
   void phoneBillTextFileIncorrectFile3(@TempDir File tempDir) throws IOException {
@@ -1234,12 +1236,12 @@ class Project3Test {
     File textFile = new File(tempDir, "emptyFile.txt");
 
     FileWriter writer = new FileWriter(textFile);
-    writer.write("Brandon;808-224-1234;808-324-6789;01/31/12, 01:30 PM;1/31/2012, 1:5 pm");
+    writer.write("Brandon;808-224-1234;808-324-6789;01/31/2012 01:30 pm;1/31/2012, 1:5 PM");
     writer.close();
 
     // WHEN the textFile is formatted incorrectly
-    // THEN output should be: "File cannot be parsed.. Ending date can only be in the format: mm/dd/yy hh:mm AM/PM."
-    assertThat(Project3.phoneBill(args, true, null, String.valueOf(textFile)), equalTo("File cannot be parsed.. Ending date can only be in the format: mm/dd/yy, hh:mm AM/PM."));
+    // THEN output should be: "File cannot be parsed.. Ending date can only be in the format: mm/dd/yyyy hh:mm am/pm."
+    assertThat(Project3.phoneBill(args, true, null, String.valueOf(textFile)), equalTo("File cannot be parsed.. Ending date can only be in the format: mm/dd/yyyy hh:mm am/pm."));
   }
   @Test
   void phoneBillPrintPrettyIncorrectFile1(@TempDir File tempDir) throws IOException {

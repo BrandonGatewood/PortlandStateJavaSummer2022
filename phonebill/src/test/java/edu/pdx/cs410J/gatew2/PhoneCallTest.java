@@ -120,4 +120,25 @@ public class PhoneCallTest {
     // THEN the output should be: 0
     assertThat(s, equalTo(0));
   }
+  @Test
+  void forGetEndTimeStringForTextFiles() {
+    //GIVEN that there is an end time "1/3/2012 9:45 pm"
+    String endDate = "1/3/2012 9:45 pm";
+    PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", "1/3/2012 8:45 pm", endDate);
+
+    //WHEN end time is requested
+    //THEN end time is "1/3/2012 9:45 pm"
+    assertThat(call.getEndTimeStringForTextFiles(), equalTo(endDate));
+  }
+  @Test
+  void forGetBeginTimeStringForTextFiles() {
+    //GIVEN that there is an end time "1/3/2012 9:45 pm"
+    String beginDate = "1/3/2012 8:45 pm";
+    PhoneCall call = new PhoneCall("808-324-0532", "905-328-4034", beginDate, "1/3/2012 9:45 pm");
+
+    //WHEN end time is requested
+    //THEN end time is "1/3/2012 8:45 pm"
+    assertThat(call.getBeginTimeStringForTextFiles(), equalTo(beginDate));
+
+  }
 }

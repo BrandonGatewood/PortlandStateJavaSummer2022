@@ -72,6 +72,12 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
   }
 
   /**
+   * Returns the unformatted begin date <code>String</code>.
+   */
+  public String getBeginTimeStringForTextFiles() {
+    return this.begin;
+  }
+  /**
    * Returns a formatted <code>String</code> of the ending
    * date and time of a <code>PhoneCall</code>.
    */
@@ -88,6 +94,13 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
    */
   public Date getEndTime() {
     return new Date(end);
+  }
+
+  /**
+   * Returns the unformatted end date <code>String</code>.
+   */
+  public String getEndTimeStringForTextFiles() {
+    return this.end;
   }
 
   /**
