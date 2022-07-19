@@ -31,19 +31,22 @@ public class TextParserTest {
     assertThat(bill.getCustomer(), equalTo("Test Phone Bill"));
   }
   @Test
-  void invalidTextFileThrowsParserExceptionCurrentDirectoryPath() throws FileNotFoundException {
+  void invalidTextFileCurrentDirectoryPath() throws FileNotFoundException, ParserException {
     InputStream in = new FileInputStream("empty-phonebill.txt");
     assertThat(in, notNullValue());
 
     TextParser parser = new TextParser(new InputStreamReader(in));
-    assertThrows(ParserException.class, parser::parse);
+    PhoneBill bill = parser.parse();
+    assertThat(bill.getCustomer(), equalTo("MISSING CUSTOMER NAME!!"));
   }
+
   @Test
-  void invalidTextFileThrowsParserExceptionSubDirectoryPath() throws FileNotFoundException {
+  void invalidTextFileSubDirectoryPath() throws FileNotFoundException, ParserException {
     InputStream in = new FileInputStream("src/test/resources/edu/pdx/cs410J/gatew2/empty-phonebill.txt");
     assertThat(in, notNullValue());
 
     TextParser parser = new TextParser(new InputStreamReader(in));
-    assertThrows(ParserException.class, parser::parse);
+    PhoneBill bill = parser.parse();
+    assertThat(bill.getCustomer(), equalTo("MISSING CUSTOMER NAME!!"));
   }
 }

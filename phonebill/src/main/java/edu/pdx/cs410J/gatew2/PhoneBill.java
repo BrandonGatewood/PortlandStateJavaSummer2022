@@ -3,6 +3,7 @@ package edu.pdx.cs410J.gatew2;
 import edu.pdx.cs410J.AbstractPhoneBill;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Vector;
 
 /**
@@ -32,8 +33,8 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   }
 
   /**
-   * Adds a <code>PhoneCall</code> object
-   * to customers list of calls.
+   * Adds and sorts a <code>PhoneCall</code>
+   * object to customers list of calls.
    *
    * @param call
    *        <code>PhoneCall</code> object
@@ -41,6 +42,10 @@ public class PhoneBill extends AbstractPhoneBill<PhoneCall> {
   @Override
   public void addPhoneCall(PhoneCall call) {
     phoneCalls.add(call);
+    // Sort the collection everytime,
+    // Just in case a .txt file hasn't
+    // Been sorted yet.
+    Collections.sort(phoneCalls);
   }
 
   /**

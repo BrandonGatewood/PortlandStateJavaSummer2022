@@ -44,7 +44,12 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
       String toParse = br.readLine();
 
       if(toParse == null || toParse.isBlank()) {
-        throw new ParserException("Missing customer");
+        PhoneBill bill = new PhoneBill("MISSING CUSTOMER NAME!!");
+        return bill;
+      }
+      else if(!toParse.contains(";")){
+        PhoneBill bill = new PhoneBill("The .txt file is formatted incorrectly. The correct format: customer;caller;callee;begin;end;");
+        return bill;
       }
       else  {
         int i = toParse.indexOf(';');
@@ -60,6 +65,14 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
             begin = phoneCallInformation[3];
             end = phoneCallInformation[4];
 
+            // Validate each String
+
+            String canParse = validateParsing(callerNumber, calleeNumber, begin, end);
+
+            if(!canParse.equals("FILE CAN BE PARSED")) {
+              PhoneBill errorBill = new PhoneBill(canParse);
+              return errorBill;
+            }
             PhoneCall call = new PhoneCall(callerNumber, calleeNumber, begin, end);
             bill.addPhoneCall(call);
           }
@@ -68,7 +81,48 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
         return bill;
       }
     } catch (IOException e) {
-      throw new ParserException("While parsing phone bill text", e);
+      PhoneBill bill = new PhoneBill("The .txt file is formatted incorrectly. The correct format: customer;caller;callee;begin;end;");
+      return bill;
     }
+  }
+
+  /**
+   * Validates the caller, callee, begin date, and end date for each
+   * <code>PhoneCall</code> in the .txt file.
+   *
+   * @param caller
+   *        The caller's phone number
+   * @param callee
+   *        The callee's phone number
+   * @param begin
+   *        The beginning time and date of the phone call.
+   * @param end
+   *        The ending time and date of the phone call.
+   */
+  public String validateParsing(String caller, String callee, String begin, String end) {
+    String parsed = "File cannot be parsed.. ";
+
+    // Validate caller number
+    if(!caller.matches("(\\d{3})-(\\d{3})-(\\d{4})")) {
+      // Incorrect format
+      return parsed + "Caller number can only be in the format: nnn-nnn-nnnn.";
+    }
+    // Validate callee number
+    else if(!callee.matches("(\\d{3})-(\\d{3})-(\\d{4})")) {
+      // Incorrect format
+      return parsed + "Callee number can only be in the format: nnn-nnn-nnnn.";
+    }
+    // Validate begin date
+    else if(!begin.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{2}), ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (AM|PM))")) {
+
+      // Incorrect format
+      return parsed + "Beginning date can only be in the format: mm/dd/yy, hh:mm AM/PM.";
+    }
+    // Validate end date
+    else if(!end.matches("(([1-9]|0[1-9]|[1-6]\\d)/([1-9]|0[1-9]|[1-6]\\d)/(\\d{2}), ((\\d|0\\d|1[0-2]):(\\d|0\\d|[1-6]\\d)) (AM|PM))")) {
+      // Incorrect format
+      return parsed + "Ending date can only be in the format: mm/dd/yy, hh:mm AM/PM.";
+    }
+    return "FILE CAN BE PARSED";
   }
 }

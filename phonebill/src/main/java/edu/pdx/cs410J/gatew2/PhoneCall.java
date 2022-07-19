@@ -2,10 +2,14 @@ package edu.pdx.cs410J.gatew2;
 
 import edu.pdx.cs410J.AbstractPhoneCall;
 
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * This class represents a <code>PhoneCall</code>.
  */
-public class PhoneCall extends AbstractPhoneCall {
+public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall> {
   private final String caller;
   private final String callee;
   private final String begin;
@@ -49,20 +53,74 @@ public class PhoneCall extends AbstractPhoneCall {
   }
 
   /**
-   * Returns a <code>String</code> that the beginning
-   * date and time of the phone call.
+   * Returns a formatted <code>String</code> of the beginning
+   * date and time of a <code>PhoneCall</code>.
    */
   @Override
   public String getBeginTimeString() {
-    return begin;
+    Date aDate = getBeginTime();
+
+    return formatDateString(aDate);
   }
 
   /**
-   * Returns a <code>String</code> that the ending date
-   * and time of the phone call.
+   * Returns a <code>Date</code> of the beginning
+   * date and time of a <code>PhoneCall</code>
+   */
+  public Date getBeginTime() {
+    return new Date(begin);
+  }
+
+  /**
+   * Returns a formatted <code>String</code> of the ending
+   * date and time of a <code>PhoneCall</code>.
    */
   @Override
   public String getEndTimeString() {
-    return end;
+    Date aDate = getEndTime();
+
+    return formatDateString(aDate);
+  }
+
+  /**
+   * Returns a <code>Date</code> of the ending
+   * date and time of a <code>PhoneCall</code>.
+   */
+  public Date getEndTime() {
+    return new Date(end);
+  }
+
+  /**
+   * Formats a <code>Date</code> object and returns it
+   * as a <code>String</code>.
+   * @param aDate
+   *        <code>Date</code> object of the beginning or
+   *        ending date and time of a <code>PhoneCall</code>
+   */
+  public String formatDateString(Date aDate) {
+    Locale currentLocale = Locale.US;
+    DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, currentLocale);
+
+    return formatter.format(aDate);
+  }
+
+  /**
+   * Overrides the compareTo function in the
+   * <code>Comparable</code> interface to sort
+   * <code>PhoneCalls</code>.
+   *
+   * @param aCall
+   *        the object to be compared.
+   */
+  @Override
+  public int compareTo(PhoneCall aCall) {
+    // if the string are not equal
+    if (getBeginTimeString().compareTo(aCall.getBeginTimeString()) != 0) {
+      return this.getBeginTimeString().compareTo(aCall.getBeginTimeString());
+    }
+    else {
+      // Compare caller numbers if dates are equal
+      return this.caller.compareTo(aCall.getCaller());
+    }
   }
 }
