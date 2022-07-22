@@ -1,10 +1,12 @@
 package edu.pdx.cs410J.gatew2;
 
 import edu.pdx.cs410J.InvokeMainTestCase;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,10 +35,11 @@ class Project3IT extends InvokeMainTestCase {
       String option1 = "\t-README: Prints a README for this project and exits\n";
       String option2 = "\t-print: Prints a description of the new phone call\n";
       String option3 = "\t-textFile file:  Where to read/write the phone bill\n";
-      String option4 = "\t-pretty file: Pretty print the phone bill to a text file or standard out (file -)\n";
+      String option4 = "\t-pretty file: Pretty print the phone bill to a text file\n";
+      String option5 = "\t-pretty -: Pretty print the phone bill to Standard out\n";
 
       MainMethodResult result = invokeMain(Project3.class);
-      assertThat(result.getTextWrittenToStandardError(), containsString(usage + option1 + option2 + option3 + option4));
+      assertThat(result.getTextWrittenToStandardError(), containsString(usage + option1 + option2 + option3 + option4 + option5));
   }
 
     /**
@@ -87,45 +90,27 @@ class Project3IT extends InvokeMainTestCase {
         //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
         assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
     }
+
     @Test
     void testTextFileOption1(@TempDir File tempDir) {
         File textFile = new File(tempDir, "apptbook.txt");
-        //GIVEN that a destination file is entered with no '-textFile' option
-        MainMethodResult result = invokeMain(Project3.class, String.valueOf(textFile),"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
-
-        //WHEN a '-textFile' option is entered with no destination file
-        //THEN output should be: "To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'."
-        assertThat(result.getTextWrittenToStandardError(), containsString("To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'."));
-    }
-    @Test
-    void testTextFileOption2(@TempDir File tempDir) {
-        File textFile = new File(tempDir, "apptbook.txt");
         //GIVEN that the '-textFile' option is entered with a destination file.
-        MainMethodResult result = invokeMain(Project3.class, "-textFile", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
+        MainMethodResult result = invokeMain(Project3.class, "-textFile", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/2012", "2:21", "pm", "1/1/2012", "5:03", "pm");
 
         //WHEN a '-textFile' option is entered with a destination file
         //THEN output should be: ""
         assertThat(result.getTextWrittenToStandardError(), containsString(""));
     }
-    @Test
-    void testTextFileOption3(@TempDir File tempDir) {
-        File textFile = new File(tempDir, "apptbook.txt");
-        //GIVEN that the '-textFile' option is entered with a destination file in the wrong order.
-        MainMethodResult result = invokeMain(Project3.class, String.valueOf(textFile), "-textFile", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
 
-        //WHEN a '-textFile' option is entered with a destination file in the wrong order
-        //THEN output should be: "To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'."
-        assertThat(result.getTextWrittenToStandardError(), containsString("To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'."));
-    }
     @Test
     void testPrintAndTextFileOption0(@TempDir File tempDir) {
         File textFile = new File(tempDir, "apptbook.txt");
         //GIVEN that the '-textFile' and '-print' option is entered with a destination file.
-        MainMethodResult result = invokeMain(Project3.class, "-print", "-textFile", String.valueOf(textFile),"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "am");
+        MainMethodResult result = invokeMain(Project3.class, "-print", "-textFile", String.valueOf(textFile),"Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
 
         //WHEN a '-textFile' option is entered with no destination file
-        //THEN output should be: "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/79, 2:21 PM to 1/1/79, 5:03 AM"
-        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/79, 2:21 PM to 1/1/79, 5:03 AM"));
+        //THEN output should be: "Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/79, 2:21 PM to 1/1/79, 5:03 PM"
+        assertThat(result.getTextWrittenToStandardError(), containsString("Brandon's phone bill with 1 phone calls\nPhone call from 905-394-4432 to 945-413-3430 from 1/1/79, 2:21 PM to 1/1/79, 5:03 PM"));
     }
     @Test
     void testPrintAndTextFileOption1(@TempDir File tempDir) {
@@ -136,16 +121,6 @@ class Project3IT extends InvokeMainTestCase {
         //WHEN a '-textFile' option is entered with no destination file in the wrong order
         //THEN output should be: "To use '-textFile' option, it must be in the order '-textFile' '.txt'."
         assertThat(result.getTextWrittenToStandardError(), containsString("To use '-textFile' option, it must be in the order '-textFile' '.txt'."));
-    }
-    @Test
-    void testPrintAndTextFileOption2(@TempDir File tempDir) {
-        File textFile = new File(tempDir, "apptbook.txt");
-        //GIVEN that the '-textFile' and '-print' option is entered with a destination file in the wrong order.
-        MainMethodResult result = invokeMain(Project3.class, String.valueOf(textFile), "-print", "-textFile", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
-
-        //WHEN a '-textFile' option is entered with no destination file in the wrong order
-        //THEN output should be: "To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'."
-        assertThat(result.getTextWrittenToStandardError(), containsString("To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'."));
     }
     @Test
     void testREADMEANDPrintAndTextFileOption(@TempDir File tempDir) throws IOException {
@@ -164,10 +139,87 @@ class Project3IT extends InvokeMainTestCase {
         MainMethodResult result = invokeMain(Project3.class, "-pretty", String.valueOf(textFile), "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
 
         //WHEN ALL options are entered
-        //THEN output should be: README.txt
+        //THEN output should be: ""
         assertThat(result.getTextWrittenToStandardError(), containsString(""));
     }
+    @Test
+    void testEmptyPrintPretty1(@TempDir File tempDir) {
+        File textFile = new File(tempDir, "apptbook.txt");
+        //GIVEN that ALL options are entered
+        MainMethodResult result = invokeMain(Project3.class, "-textFile", String.valueOf(textFile), "-pretty", "-", "Brandon", "905-394-4432", "945-413-3430", "1/1/1979", "2:21", "pm", "1/1/1979", "5:03", "pm");
 
+        //WHEN ALL options are entered
+        //THEN output should be: ""
+        assertThat(result.getTextWrittenToStandardError(), containsString(""));
+    }
+    @Test
+    void testPrintPretty0(@TempDir File tempDir) throws IOException {
+        String customer = "Test Phone Bill";
+        PhoneBill bill = new PhoneBill(customer);
+        PhoneCall call1 = new PhoneCall("808-924-4323", "905-234-4323", "2/23/2013 1:30 am", "2/23/2013 1:50 pm");
+        PhoneCall call2 = new PhoneCall("808-924-4323", "705-214-4323", "6/15/2012 2:50 pm", "2/25/2013 3:30 pm");
+        bill.addPhoneCall(call1);
+        bill.addPhoneCall(call2);
+        File textFile = new File(tempDir, "emptyFile.txt");
+        TextDumper dumper = new TextDumper(new FileWriter(textFile));
+        dumper.dump(bill);
+
+        //GIVEN that ALL options are entered
+        MainMethodResult result = invokeMain(Project3.class, "-pretty", String.valueOf(textFile), "Test Phone Bill", "808-924-4323", "945-413-3430", "1/1/2019", "2:21", "pm", "1/1/2019", "5:03", "pm");
+
+        //WHEN ALL options are entered
+        //THEN output should be: ""
+        assertThat(result.getTextWrittenToStandardError(), containsString(""));
+    }
+    @Test
+    void testPrintPretty1(@TempDir File tempDir) throws IOException {
+        String customer = "Test Phone Bill";
+        PhoneBill bill = new PhoneBill(customer);
+        PhoneCall call1 = new PhoneCall("808-924-4323", "905-234-4323", "2/23/2013 1:30 am", "2/23/2013 1:50 pm");
+        PhoneCall call2 = new PhoneCall("808-924-4323", "705-214-4323", "6/15/2012 2:50 pm", "2/25/2013 3:30 pm");
+        PhoneCall call3 = new PhoneCall("808-924-4323", "705-214-4323", "7/15/2012 2:50 pm", "7/25/2013 3:30 pm");
+
+
+        bill.addPhoneCall(call1);
+        bill.addPhoneCall(call2);
+        bill.addPhoneCall(call3);
+
+        File textFile = new File(tempDir, "emptyFile.txt");
+        TextDumper dumper = new TextDumper(new FileWriter(textFile));
+        dumper.dump(bill);
+
+        //GIVEN that ALL options are entered
+        MainMethodResult result = invokeMain(Project3.class, "-pretty", "-", "Test Phone Bill", "808-924-4323", "945-413-3430", "1/1/2019", "2:21", "pm", "1/1/2019", "5:03", "pm");
+
+        //WHEN ALL options are entered
+        //THEN output should be: "No .txt file to Pretty print to standard out."
+        assertThat(result.getTextWrittenToStandardError(), containsString("No .txt file to Pretty print to standard out."));
+    }
+
+    @Test
+    void testPrintPretty2(@TempDir File tempDir) throws IOException {
+        String customer = "Test Phone Bill";
+        PhoneBill bill = new PhoneBill(customer);
+        PhoneCall call1 = new PhoneCall("808-924-4323", "905-234-4323", "2/23/2013 1:30 am", "2/23/2013 1:50 pm");
+        PhoneCall call2 = new PhoneCall("808-924-4323", "705-214-4323", "6/15/2012 2:50 pm", "2/25/2013 3:30 pm");
+        PhoneCall call3 = new PhoneCall("808-924-4323", "705-214-4323", "7/15/2012 2:50 pm", "7/25/2013 3:30 pm");
+
+
+        bill.addPhoneCall(call1);
+        bill.addPhoneCall(call2);
+        bill.addPhoneCall(call3);
+
+        File textFile = new File(tempDir, "emptyFile.txt");
+        TextDumper dumper = new TextDumper(new FileWriter(textFile));
+        dumper.dump(bill);
+
+        //GIVEN that ALL options are entered
+        MainMethodResult result = invokeMain(Project3.class, "-textFile", String.valueOf(textFile), "-pretty", "-", "Test Phone Bill", "808-924-4323", "945-413-3430", "1/1/2019", "2:21", "pm", "1/1/2019", "5:03", "pm");
+
+        //WHEN ALL options are entered
+        //THEN output should be: ""
+        assertThat(result.getTextWrittenToStandardError(), containsString(""));
+    }
     /**
     * Tests that invoking the main method with one argument issues an error
     */

@@ -7,14 +7,15 @@ To use run this project on the command line, [options] are optional and <args> a
 
 java -jar target/phonebill-2022.0.0.jar [options] <args>
 
-[options] can be entered in any order, except when using the '-textFile' and '-pretty' option, a path to a .txt file must be entered right after it.
+[options] can be entered in any order, except when using the '-textFile' and '-pretty' option, a path to a .txt file must be entered right after it. '-print' may either have a .txt file or '-' right after.
     Supported [options] include:
-    '-print', '-README', "'-textFile' '.txt'", and "'-pretty' '.txt'"
+    '-print', '-README', "'-textFile' '.txt'", "'-pretty' '.txt'", and "'-pretty' '-'"
 
     '-print' option will print out the customers Phone Bill entered from the command line.
     '-README' option will display the README file for this project.
     "'-textFile' '.txt'" option will parse through the given '.txt' file, create a new phone bill for the given customer, then add all calls from the given .txt file and the command line. It will then write back to the .txt with the new phone call.
-    "'-pretty' '.txt'" option will dump a PhoneBill and its PhoneCalls into the '.txt' file in a pretty format, and then read the '.txt' file to Standard Output.
+    "'-pretty' '.txt'" option will dump a PhoneBill and its PhoneCalls into the '.txt' file in a pretty format.
+    "'-pretty' '.txt'" option will print a PhoneBill and its PhoneCalls to Standard Output in a pretty format.
 
     NOTE: Each Customer will have their own .txt file and will not check if each customer name in the file are the same.
 

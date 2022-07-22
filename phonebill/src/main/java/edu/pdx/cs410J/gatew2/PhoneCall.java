@@ -3,6 +3,8 @@ package edu.pdx.cs410J.gatew2;
 import edu.pdx.cs410J.AbstractPhoneCall;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -127,12 +129,11 @@ public class PhoneCall extends AbstractPhoneCall implements Comparable<PhoneCall
    */
   @Override
   public int compareTo(PhoneCall aCall) {
-    // if the string are not equal
-    if (getBeginTimeString().compareTo(aCall.getBeginTimeString()) != 0) {
-      return this.getBeginTimeString().compareTo(aCall.getBeginTimeString());
-    }
-    else {
-      // Compare caller numbers if dates are equal
+    // If dates are not equal
+    if (this.getBeginTime().compareTo(aCall.getBeginTime()) != 0) {
+      return this.getBeginTime().compareTo(aCall.getBeginTime());
+    } else {
+      // compare caller numbers if dates are equal
       return this.caller.compareTo(aCall.getCaller());
     }
   }

@@ -122,7 +122,7 @@ public class TextParser implements PhoneBillParser<PhoneBill> {
     }
 
     // Check if end date is before begin date.
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.US);
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
 
     Date dateBegin = sdf.parse(begin);
     Date dateEnd = sdf.parse(end);

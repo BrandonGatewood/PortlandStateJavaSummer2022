@@ -26,10 +26,11 @@ public class Project3 {
           String option1 = "\t-README: Prints a README for this project and exits\n";
           String option2 = "\t-print: Prints a description of the new phone call\n";
           String option3 = "\t-textFile file:  Where to read/write the phone bill\n";
-          String option4 = "\t-pretty file: Pretty print the phone bill to a text file or standard out (file -)\n";
+          String option4 = "\t-pretty file: Pretty print the phone bill to a text file\n";
+          String option5 = "\t-pretty -: Pretty print the phone bill to Standard out\n";
 
           // No arguments entered, so display a "how to use" message.
-          System.err.println(usage + option1 + option2 + option3 + option4);
+          System.err.println(usage + option1 + option2 + option3 + option4 + option5);
       }
     else {
         String errorMessage = checkForInputOptions(args);
@@ -83,11 +84,12 @@ public class Project3 {
     boolean print = false;
     String filePath = null;
     String prettyPath = null;
+    boolean prettyStdOut = false;
     ArrayList<String> newArgs = new ArrayList<>(Arrays.asList(args));
 
-    String genericErrorOptionsMessage = "To use the '-textFile' or '-pretty' option, it must be in the order '-textFile' '.txt' or '-pretty' '.txt'.";
     String errorTextFileOption = "To use '-textFile' option, it must be in the order '-textFile' '.txt'.";
-    String errorPrettyOption = "To use '-pretty' option, it must be in the order '-pretty' '.txt'.";
+    String errorPrettyOption1 = "To use '-pretty' option, it must be in the order '-pretty' '.txt' to Pretty print the phone bill to a text file.";
+    String errorPrettyOption2 = " Or '-pretty' '-' to Pretty print the phone bill to standard out.";
 
     for(int i = 0; i < newArgs.size(); ++i) {
         // If '-textFile' option is given
@@ -99,29 +101,31 @@ public class Project3 {
                 newArgs.remove(i);
                 // Removes '.txt' file
                 newArgs.remove(i);
-                break;
-            }
-            else {
+            } else {
                 return errorTextFileOption;
             }
         }
-        else if (newArgs.get(i).equals("-pretty")) {
+        if (newArgs.get(i).equals("-pretty")) {
             if (newArgs.get(i + 1).contains(".txt")) {
                 prettyPath = newArgs.get(i + 1);
                 // Removes '-pretty'
                 newArgs.remove(i);
                 // Removes '.txt' file
                 newArgs.remove(i);
-                break;
+            }
+            else if(newArgs.get(i + 1).equals("-")) {
+                prettyStdOut = true;
+                // Removes '-pretty'
+                newArgs.remove(i);
+                // Removes '-' argument
+                newArgs.remove(i);
             }
             else {
-                return errorPrettyOption;
+                return errorPrettyOption1 + errorPrettyOption2;
             }
         }
-        else if(newArgs.get(i).contains(".txt")) {
-            return genericErrorOptionsMessage;
-        }
     }
+
     // Check for '-print' option
     for(int i = 0; i < newArgs.size(); ++i) {
         // If '-print' option is given
@@ -133,7 +137,7 @@ public class Project3 {
             break;
         }
     }
-    return validateArgLength(newArgs, print, filePath, prettyPath);
+    return validateArgLength(newArgs, print, filePath, prettyPath, prettyStdOut);
   }
 
   /**
@@ -149,9 +153,12 @@ public class Project3 {
    *        Contains the file path to the .txt file
    * @param prettyPath
    *        Contains the file to a .txt file to pretty print
+   * @param prettyStdOut
+   *        print flag to determine to pretty print a <code>PhoneBill</code> and its
+   *        <code>PhoneCall</code>s to standard out.
    */
   @VisibleForTesting
-  static String validateArgLength(ArrayList<String> args, boolean print, String filePath, String prettyPath) throws IOException, ParseException {
+  static String validateArgLength(ArrayList<String> args, boolean print, String filePath, String prettyPath, boolean prettyStdOut) throws IOException, ParseException {
     // Ignored args.length == 0, because main checked it before
     // calling checkForInputOptions method.
     if(args.size() == 1) {
@@ -179,7 +186,7 @@ public class Project3 {
         return "Missing ending \"am\"/\"pm\"";
     }
     else if(args.size() == 9) {
-      return validateEachArgument(args, print, filePath, prettyPath);
+      return validateEachArgument(args, print, filePath, prettyPath, prettyStdOut);
     }
     else {
       return "Too many arguments";
@@ -204,9 +211,12 @@ public class Project3 {
    *        Contains the file path to the .txt file
    * @param prettyPath
    *        Contains the file to a .txt file to pretty print
+   * @param prettyStdOut
+   *        print flag to determine to pretty print a <code>PhoneBill</code> and its
+   *        <code>PhoneCall</code>s to standard out.
    */
 @VisibleForTesting
- static String validateEachArgument(ArrayList<String> args, boolean print, String filePath, String prettyPath) throws IOException, ParseException {
+ static String validateEachArgument(ArrayList<String> args, boolean print, String filePath, String prettyPath, boolean prettyStdOut) throws IOException, ParseException {
     String customer = args.get(0);
     String callerNumber = args.get(1);
     String calleeNumber = args.get(2);
@@ -264,7 +274,7 @@ public class Project3 {
         String end = args.get(6) + " " + args.get(7) + " " + args.get(8);
 
         // Check if end date is before begin date.
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US);
 
         Date dateBegin = sdf.parse(begin);
         Date dateEnd = sdf.parse(end);
@@ -276,7 +286,7 @@ public class Project3 {
         String[] newArgs = {customer, callerNumber, calleeNumber, begin, end};
 
         //create new phone bill
-        return phoneBill(newArgs, print, filePath, prettyPath);
+        return phoneBill(newArgs, print, filePath, prettyPath, prettyStdOut);
     }
   }
 
@@ -299,13 +309,21 @@ public class Project3 {
    *        Contains the file path to the .txt file
    * @param prettyPath
    *        Contains the file to a .txt file to pretty print
+   * @param prettyStdOut
+   *        print flag to determine to pretty print a <code>PhoneBill</code> and its
+   *        <code>PhoneCall</code>s to standard out.
    */
   @VisibleForTesting
-  static String phoneBill(String[] args, boolean print, String filePath, String prettyPath) throws IOException {
+  static String phoneBill(String[] args, boolean print, String filePath, String prettyPath, boolean prettyStdOut) throws IOException, ParseException {
     PhoneCall call = new PhoneCall(args[1], args[2], args[3], args[4]);
     PhoneBill bill = new PhoneBill(args[0]);
     bill.addPhoneCall(call);
-    
+
+    // Check if prettyStdOut is true but no filepath to print to standard out
+    if(filePath == null && prettyStdOut) {
+        return "No .txt file to Pretty print to standard out.";
+    }
+
     // Check for '-textFIle' option
     if(filePath != null) {
         File textFile = new File(filePath);
@@ -332,12 +350,20 @@ public class Project3 {
             // Add new call to the phone bill
             bill.addPhoneCall(call);
         }
-        // Dump the phone bill back to the .txt file.
-        TextDumper dumper = new TextDumper(new FileWriter(textFile, false));
-        dumper.dump(bill);
+
+        if(prettyStdOut) {
+            PrettyPrinter stdOut = new PrettyPrinter(new FileWriter(textFile, false));
+            stdOut.prettyPrintStdOutput(bill);
+        }
+        else {
+            // Dump the phone bill back to the .txt file.
+            TextDumper dumper = new TextDumper(new FileWriter(textFile, false));
+            dumper.dump(bill);
+        }
     }
+
     // Check for '-pretty' option
-    else if(prettyPath != null) {
+    if(prettyPath != null) {
         File textFile = new File(prettyPath);
 
         // Check if file is not empty
@@ -366,12 +392,6 @@ public class Project3 {
         // Dump the phone bill back to the .txt file.
         PrettyPrinter dumper = new PrettyPrinter(new FileWriter(textFile, false));
         dumper.dump(bill);
-
-        BufferedReader br = new BufferedReader(new FileReader(textFile));
-        String s;
-        while((s = br.readLine()) != null) {
-            System.out.println(s);
-        }
     }
     
     // Check for '-print' option

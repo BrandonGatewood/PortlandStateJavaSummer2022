@@ -39,7 +39,7 @@ public class PrettyPrinter implements PhoneBillDumper<PhoneBill> {
 
             // Customer has no PhoneCalls
             if(!phoneCalls.isEmpty()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, hh:mm", Locale.US);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, hh:mm aa", Locale.US);
 
                 // Get the customers name
                 pw.println("Customer: " + bill.getCustomer());
@@ -65,6 +65,46 @@ public class PrettyPrinter implements PhoneBillDumper<PhoneBill> {
         } catch (ParseException e) {
             System.out.println("ERROR, failed or interrupted I/O operation.");
         }
+    }
+
+    /**
+     * Formats a <code>PhoneBill</code> and its <code>PhoneCalls</code>
+     * to pretty print to Standard out. Then dumps all the information
+     * to a .txt file.
+     *
+     * @param bill
+     *        <code>PhoneBill</code> object.
+     */
+    public void prettyPrintStdOutput(PhoneBill bill) throws ParseException {
+        // Get the collection of phone calls from bill
+        Vector<PhoneCall> phoneCalls = new Vector<>(bill.getPhoneCalls());
+
+        // Customer has no PhoneCalls
+        if(!phoneCalls.isEmpty()) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy, hh:mm aa", Locale.US);
+
+            // Get the customers name
+            System.out.println("Customer: " + bill.getCustomer());
+            System.out.println("Number: " + phoneCalls.get(0).getCaller());
+
+            // Loop through each phone call and save their information
+            for (int i = 0; i < phoneCalls.size(); ++i) {
+                String calleeNumber = phoneCalls.get(i).getCallee();
+                String begin = phoneCalls.get(i).getBeginTimeString();
+                String end = phoneCalls.get(i).getEndTimeString();
+
+                // Calculate duration of the phone call
+                Date firstDate = sdf.parse(begin);
+                Date secondDate = sdf.parse(end);
+                long diff = secondDate.getTime() - firstDate.getTime();
+                long min = TimeUnit.MILLISECONDS.toMinutes(diff);
+
+                System.out.println(i+1 + ".\tCall with: " + calleeNumber + " from " + begin + " - " + end + ".");
+                System.out.println("\tDuration of call: " + min + " minutes.");
+            }
+        }
+        TextDumper dumper = new TextDumper(writer);
+        dumper.dump(bill);
     }
 }
 
