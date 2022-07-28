@@ -30,9 +30,14 @@ accordingly
     
     
     
+<<<<<<< HEAD
     <groupId>io.github.davidwhitlock.cs410J</groupId>
                         
     
+=======
+    <groupId>io.github.davidwhitlock.cs410j</groupId>
+                    
+>>>>>>> parent of e83c789 (testing pom.xml)
     
     
     
