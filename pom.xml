@@ -20,6 +20,7 @@ accordingly
 
 
     <artifactId>cs410j</artifactId>
+<<<<<<< HEAD
 
 
 
@@ -29,6 +30,27 @@ accordingly
 
 
 
+=======
+                        
+    
+    
+    
+<<<<<<< HEAD
+    
+<<<<<<< HEAD
+    <groupId>io.github.davidwhitlock.cs410J</groupId>
+                        
+    
+=======
+=======
+>>>>>>> parent of e83c789 (testing pom.xml)
+    <groupId>io.github.davidwhitlock.cs410j</groupId>
+                    
+>>>>>>> parent of e83c789 (testing pom.xml)
+    
+    
+    
+>>>>>>> 8bcb6a790b017b9e584d6d690487d65624faa57e
     <version>2022.1.0</version>
 
 
