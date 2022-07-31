@@ -21,6 +21,11 @@ public class PhoneBillRestClient {
 
     private static final String WEB_APP = "phonebill";
     private static final String SERVLET = "calls";
+    static final String CUSTOMER_PARAMETER = "customer";
+    static final String CALLER_PARAMETER = "caller";
+    static final String CALLEE_PARAMETER = "callee";
+    static final String BEGIN_PARAMETER = "begin";
+    static final String END_PARAMETER = "end";
 
   private final HttpRequestHelper http;
 
@@ -41,43 +46,82 @@ public class PhoneBillRestClient {
   }
 
   /**
-   * Returns all dictionary entries from the server
+   * GETS ALL <code>PhoneCall</code> in a <code>PhoneBill</code> for a customer
+   * from the server.
    */
-  public Map<String, String> getAllDictionaryEntries() throws IOException, ParserException {
-    Response response = http.get(Map.of());
-
-    TextParser parser = new TextParser(new StringReader(response.getContent()));
-    return parser.parse();
+  public Response getAllPhoneCallsForCustomer(String customer) throws IOException {
+    return http.get(Map.of(CUSTOMER_PARAMETER, customer));
   }
 
   /**
-   * Returns the definition for the given word
+   * GETs all <code>PhoneCall</code> between begin and end time from
+   * the server.
+   *
+   * @param customer
+   *        A customers name
+   * @param begin
+   *        A beginning date
+   * @param end
+   *        An ending date
    */
-  public String getDefinition(String word) throws IOException, ParserException {
-    Response response = http.get(Map.of("word", word));
-    throwExceptionIfNotOkayHttpStatus(response);
-    String content = response.getContent();
-
-    TextParser parser = new TextParser(new StringReader(content));
-    return parser.parse().get(word);
+  public Response getRangePhoneCalls(String customer, String begin, String end) throws IOException {
+    return http.get(Map.of(CUSTOMER_PARAMETER, customer, BEGIN_PARAMETER, begin, END_PARAMETER, end));
   }
 
-    public void addDictionaryEntry(String word, String definition) throws IOException {
-      Response response = http.post(Map.of("word", word, "definition", definition));
-      throwExceptionIfNotOkayHttpStatus(response);
+  /**
+   * POSTs a new <code>PhoneCall</code> to an existing or new <code>PhoneBill</code>
+   * to the server.
+   *
+   * @param customer
+   *        A customers name
+   * @param caller
+   *        The customers phone number
+   * @param callee
+   *        The calles phone number
+   * @param begin
+   *        A beginning date of the phone call
+   * @param end
+   *        An ending date of the phone call
+   */
+  public Response postPhoneBill(String customer, String caller, String callee, String begin, String end) throws IOException {
+    return http.post(Map.of(CUSTOMER_PARAMETER, customer, CALLER_PARAMETER, caller, CALLEE_PARAMETER, callee, BEGIN_PARAMETER, begin, END_PARAMETER, end));
+  }
+
+  /**
+   * Returns the <code>PhoneCall</code>s for the given customer
+   * from the server
+   *
+   * @param customer
+   *        Customers name
+   * @param begin
+   *        Begin date and time of <code>PhoneCall</code>
+   * @param end
+   *        End date and time of <code>PhoneCall</code>
+   */
+  public String getPhoneBill(String customer, String begin, String end) throws IOException, ParserException {
+    Response response;
+    if(begin == null || end == null) {
+        response = http.get(Map.of(CUSTOMER_PARAMETER, customer));
+    }
+    else {
+      response = http.get(Map.of(CUSTOMER_PARAMETER, customer, BEGIN_PARAMETER, begin, END_PARAMETER, end));
     }
 
-  public void removeAllDictionaryEntries() throws IOException {
-      Response response = http.delete(Map.of());
-      throwExceptionIfNotOkayHttpStatus(response);
-    }
+    throwExceptionIfNotOkayHttpStatus(response);
+    return response.getContent();
+  }
 
-    private void throwExceptionIfNotOkayHttpStatus(Response response) {
-      int code = response.getHttpStatusCode();
-      if (code != HTTP_OK) {
-        String message = response.getContent();
-        throw new RestException(code, message);
-      }
+  /**
+   * Throws a new <code>RestException</code> if the HTTP
+   * response is not okay.
+   * @param response
+   *        A HTTP response
+   */
+  private void throwExceptionIfNotOkayHttpStatus(Response response) {
+    int code = response.getHttpStatusCode();
+    if (code != HTTP_OK) {
+      String message = response.getContent();
+      throw new RestException(code, message);
     }
-
+  }
 }

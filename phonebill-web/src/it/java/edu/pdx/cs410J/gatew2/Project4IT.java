@@ -3,6 +3,7 @@ package edu.pdx.cs410J.gatew2;
 import edu.pdx.cs410J.InvokeMainTestCase;
 import edu.pdx.cs410J.UncaughtExceptionInMain;
 import edu.pdx.cs410J.web.HttpRequestHelper.RestException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
@@ -18,58 +19,30 @@ import static org.junit.jupiter.api.MethodOrderer.MethodName;
 /**
  * Tests the {@link Project4} class by invoking its main method with various arguments
  */
+
 @TestMethodOrder(MethodName.class)
 class Project4IT extends InvokeMainTestCase {
     private static final String HOSTNAME = "localhost";
     private static final String PORT = System.getProperty("http.port", "8080");
 
-    @Test
-    void test0RemoveAllMappings() throws IOException {
-      PhoneBillRestClient client = new PhoneBillRestClient(HOSTNAME, Integer.parseInt(PORT));
-      client.removeAllDictionaryEntries();
-    }
 
     @Test
-    void test1NoCommandLineArguments() {
+    void NoCommandLineArguments() {
         MainMethodResult result = invokeMain( Project4.class );
         assertThat(result.getTextWrittenToStandardError(), containsString(Project4.MISSING_ARGS));
     }
 
     @Test
-    void test2EmptyServer() {
-        MainMethodResult result = invokeMain( Project4.class, HOSTNAME, PORT );
-        String out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(PrettyPrinter.formatWordCount(0)));
+    void NoHostName() {
+        MainMethodResult result = invokeMain( Project4.class, "-port", "123", "bg" );
+        assertThat(result.getTextWrittenToStandardError(), equalTo("-host hostName must be the first two arguments.\n"));
     }
-
     @Test
-    void test3NoDefinitionsThrowsAppointmentBookRestException() {
-        String word = "WORD";
-        try {
-            invokeMain(Project4.class, HOSTNAME, PORT, word);
-            fail("Expected a RestException to be thrown");
-
-        } catch (UncaughtExceptionInMain ex) {
-            RestException cause = (RestException) ex.getCause();
-            assertThat(cause.getHttpStatusCode(), equalTo(HttpURLConnection.HTTP_NOT_FOUND));
-        }
+    void NoPort() {
+        MainMethodResult result = invokeMain( Project4.class, "-host", "localHost", "bg" );
+        assertThat(result.getTextWrittenToStandardError(), equalTo("-port port must be the third and fourth argument.\n"));
     }
 
-    @Test
-    void test4AddDefinition() {
-        String word = "WORD";
-        String definition = "DEFINITION";
 
-        MainMethodResult result = invokeMain( Project4.class, HOSTNAME, PORT, word, definition );
-        String out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(Messages.definedWordAs(word, definition)));
 
-        result = invokeMain( Project4.class, HOSTNAME, PORT, word );
-        out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(PrettyPrinter.formatDictionaryEntry(word, definition)));
-
-        result = invokeMain( Project4.class, HOSTNAME, PORT );
-        out = result.getTextWrittenToStandardOut();
-        assertThat(out, out, containsString(PrettyPrinter.formatDictionaryEntry(word, definition)));
-    }
 }
