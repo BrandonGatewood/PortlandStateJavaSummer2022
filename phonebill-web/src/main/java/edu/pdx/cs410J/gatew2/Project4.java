@@ -36,37 +36,26 @@ public class Project4 {
      *        Command line arguments
      */
     public static String checkForInputOptions(List<String> args) throws ParseException, IOException {
-        String hostName;
-        String portString;
+        String hostName = null;
+        String portString = null;
         boolean search = false;
         boolean print = false;
-
-        // Set hostName
-        if(args.get(0).equals("-host")) {
-            hostName = args.get(1);
-        }
-        else {
-            return "-host hostName must be the first two arguments.";
-        }
-        // Set portString
-        if(args.get(2).equals("-port")) {
-            portString = args.get(3);
-        }
-        else {
-            return "-port port must be the third and fourth argument.";
-        }
-        // remove -host and -port from list
-        args.remove(3);
-        args.remove(2);
-        args.remove(1);
-        args.remove(0);
-
-        int printIndex = 0;
-        int searchIndex = 0;
 
         // Check for options
         for(int i = 0; i < args.size(); ++i) {
             switch (args.get(i)) {
+                case "-host":
+                    hostName = args.get(i + 1);
+                    i = i - 1;
+                    args.remove(i + 1);
+                    args.remove(i + 1);
+                    break;
+                case "-port":
+                    portString = args.get(i + 1);
+                    i = i - 1;
+                    args.remove(i + 1);
+                    args.remove(i + 1);
+                    break;
                 case "-README":
                     try (
                             InputStream readme = Project4.class.getResourceAsStream("README.txt")
@@ -85,11 +74,13 @@ public class Project4 {
                     }
                 case "-print":
                     print = true;
-                    printIndex = i;
+                    i = i - 1;
+                    args.remove(i + 1);
                     break;
                 case "-search":
                     search = true;
-                    searchIndex = i;
+                    i = i - 1;
+                    args.remove(i + 1);
                     break;
             }
         }
@@ -118,14 +109,6 @@ public class Project4 {
         }
 
         PhoneBillRestClient client = new PhoneBillRestClient(hostName, port);
-
-        // Remove index for '-print' and '-search'
-        if(search) {
-            args.remove(searchIndex);
-        }
-        if(print) {
-            args.remove(printIndex);
-        }
 
         return validateArgumentsLength(client, args, print, search);
     }
@@ -228,12 +211,17 @@ public class Project4 {
      * @param args
      *        List of arguments from the command line
      */
-    public static String prettyPrint(PhoneBillRestClient client, List<String> args) throws IOException {
-        HttpRequestHelper.Response response;
+    public static String prettyPrint(PhoneBillRestClient client, List<String> args) {
+        try {
+            HttpRequestHelper.Response response;
 
-        response = client.getAllPhoneCallsForCustomer(args.get(0));
+            response = client.getAllPhoneCallsForCustomer(args.get(0));
 
-        return response.getContent();
+            return response.getContent();
+        }
+        catch (IOException e) {
+            return "Could not contact server";
+        }
     }
 
     /**
@@ -435,11 +423,16 @@ public class Project4 {
      *        List of command line arguments
      */
     public static String search(PhoneBillRestClient client, String[] args) throws IOException {
-        HttpRequestHelper.Response response;
+       try {
+           HttpRequestHelper.Response response;
 
-        response = client.getRangePhoneCalls(args[0], args[1], args[2]);
+           response = client.getRangePhoneCalls(args[0], args[1], args[2]);
 
-        return response.getContent();
+           return response.getContent();
+       }
+       catch (IOException e) {
+           return "Could not contact server";
+       }
     }
 
     /**
@@ -457,14 +450,18 @@ public class Project4 {
      *        print flag to print the newly added <code>PhoneCall</code>
      */
     public static String addPhoneCall(PhoneBillRestClient client, String[] args, boolean print) throws IOException {
-        HttpRequestHelper.Response response;
+        try {
+            HttpRequestHelper.Response response;
 
-        response = client.postPhoneBill(args[0], args[1], args[2], args[3], args[4]);
-        if(print) {
-            return response.getContent();
+            response = client.postPhoneBill(args[0], args[1], args[2], args[3], args[4]);
+            if (print) {
+                return response.getContent();
+            } else {
+                return "";
+            }
         }
-        else {
-            return "";
+        catch (IOException e) {
+            return "Could not contact server";
         }
     }
 

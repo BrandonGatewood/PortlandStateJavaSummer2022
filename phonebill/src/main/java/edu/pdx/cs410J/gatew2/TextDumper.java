@@ -5,6 +5,7 @@ import edu.pdx.cs410J.PhoneBillDumper;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Date;
 import java.util.Vector;
 
 /**
@@ -31,7 +32,6 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
    *        <code>PhoneBill</code> object.
    */
   @Override
-  @VisibleForTesting
   public void dump(PhoneBill bill) {
     try (
             PrintWriter pw = new PrintWriter(this.writer)
@@ -57,4 +57,6 @@ public class TextDumper implements PhoneBillDumper<PhoneBill> {
       pw.flush();
     }
   }
+
+
 }

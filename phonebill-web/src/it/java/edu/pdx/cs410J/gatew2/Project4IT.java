@@ -32,16 +32,6 @@ class Project4IT extends InvokeMainTestCase {
         assertThat(result.getTextWrittenToStandardError(), containsString(Project4.MISSING_ARGS));
     }
 
-    @Test
-    void NoHostName() {
-        MainMethodResult result = invokeMain( Project4.class, "-port", "123", "bg" );
-        assertThat(result.getTextWrittenToStandardError(), equalTo("-host hostName must be the first two arguments.\n"));
-    }
-    @Test
-    void NoPort() {
-        MainMethodResult result = invokeMain( Project4.class, "-host", "localHost", "bg" );
-        assertThat(result.getTextWrittenToStandardError(), equalTo("-port port must be the third and fourth argument.\n"));
-    }
 
 
 
