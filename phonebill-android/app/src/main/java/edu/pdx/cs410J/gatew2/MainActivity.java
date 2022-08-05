@@ -2,7 +2,9 @@ package edu.pdx.cs410J.gatew2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,5 +12,52 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    /**
+     * Starts a new activity to display the README.txt.
+     *
+     * @param view
+     *        Reference to help button
+     */
+    public void displayREADME(View view) {
+        Intent intent = new Intent(this, ReadMeActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     *  Starts a new activity to add a new <code>PhoneCall</code>
+     *  to a new or existing <code>PhoneBill</code>
+     *
+     * @param view
+     *        Reference to add_call_to_phone_bill button
+     */
+    public void AddToPhoneBill(View view) {
+        Intent intent = new Intent(this, AddCallToBill.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Starts a new activity to pretty print
+     * a customers <code>PhoneBill</code>
+     *
+     * @param view
+     *        Reference to pretty_print_phone_bill button
+     */
+    public void prettyPrintAPhoneBill(View view) {
+        Intent intent = new Intent(this, PrettyPrint.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Starts a new activity to get user input
+     * to search a customers <code>PhoneBill</code>
+     *
+     * @param view
+     *        Reference to search_a_phone_bill button
+     */
+    public void searchPhoneBill(View view) {
+        Intent intent = new Intent(this, SearchPhoneBill.class);
+        startActivity(intent);
     }
 }

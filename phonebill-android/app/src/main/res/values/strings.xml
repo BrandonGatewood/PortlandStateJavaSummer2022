@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Phonebill</string>
+    <string name="welcome_to_phonebill">Welcome to Phonebill</string>
+    <string name="help">HELP!</string>
+    <string name="add_call_to_phone_bill">Add a call to phone bill</string>
+    <string name="pretty_print_phone_bill">Pretty print phone bill</string>
+    <string name="search_a_phone_bill">Search a phone bill</string>
 </resources>

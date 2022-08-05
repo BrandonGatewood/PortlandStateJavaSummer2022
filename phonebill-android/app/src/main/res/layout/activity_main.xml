@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="Welcome to Phonebill"
+        android:text="@string/welcome_to_phonebill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,8 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HELP!"
+        android:onClick="displayREADME"
+        android:text="@string/help"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -35,14 +36,16 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp">
+        tools:layout_editor_absoluteX="1dp"
+        tools:ignore="MissingConstraints">
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            android:text="Add to a phone call" />
+            android:onClick="AddToPhoneBill"
+            android:text="@string/add_call_to_phone_bill" />
 
         <Button
             android:id="@+id/button2"
@@ -50,14 +53,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
             android:layout_marginBottom="45dp"
-            android:text="Pretty print phone bill" />
+            android:onClick="prettyPrintAPhoneBill"
+            android:text="@string/pretty_print_phone_bill" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="45dp"
-            android:text="Search a phone bill" />
+            android:onClick="searchPhoneBill"
+            android:text="@string/search_a_phone_bill" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
