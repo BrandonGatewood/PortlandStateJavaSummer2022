@@ -7,27 +7,32 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/mainTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="16dp"
         android:text="@string/welcome_to_phonebill"
+        android:textStyle="bold"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/mainReadMeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="displayREADME"
         android:text="@string/help"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintVertical_bias="0.976"
+        android:textColor="@color/design_default_color_secondary"
+        style="?android:attr/buttonBarButtonStyle" />
 
     <LinearLayout
         android:layout_width="408dp"
@@ -40,7 +45,7 @@
         tools:ignore="MissingConstraints">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/mainAddToPhoneBillButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
@@ -48,7 +53,7 @@
             android:text="@string/add_call_to_phone_bill" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/mainPrettyPrintButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
@@ -57,7 +62,7 @@
             android:text="@string/pretty_print_phone_bill" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/mainSearchAPhoneBillButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="45dp"

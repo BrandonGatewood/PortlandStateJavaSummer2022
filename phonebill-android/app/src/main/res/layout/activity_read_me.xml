@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ReadMeActivity">
 
+    <TextView
+        android:id="@+id/readMeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/read_me"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling" />
+
+    <ScrollView
+        android:id="@+id/readMeScrollView"
+        android:layout_width="384dp"
+        android:layout_height="546dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/readMeTitle"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/readMeTxt"
+            android:layout_width="384dp"
+            android:layout_height="384dp"
+            tools:layout_editor_absoluteX="231dp"
+            tools:layout_editor_absoluteY="342dp" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

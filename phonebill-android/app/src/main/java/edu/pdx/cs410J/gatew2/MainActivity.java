@@ -15,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts a new activity to display the README.txt.
+     * Starts a new activity to display the readme.txt.
      *
      * @param view
-     *        Reference to help button
+     *        Reference to mainReadMeButton button
      */
     public void displayREADME(View view) {
         Intent intent = new Intent(this, ReadMeActivity.class);
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
      *  to a new or existing <code>PhoneBill</code>
      *
      * @param view
-     *        Reference to add_call_to_phone_bill button
+     *        Reference to mainAddToPhoneBillButton button
      */
     public void AddToPhoneBill(View view) {
         Intent intent = new Intent(this, AddCallToBill.class);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
      * a customers <code>PhoneBill</code>
      *
      * @param view
-     *        Reference to pretty_print_phone_bill button
+     *        Reference to mainPrettyPrintButton button
      */
     public void prettyPrintAPhoneBill(View view) {
         Intent intent = new Intent(this, PrettyPrint.class);
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
      * to search a customers <code>PhoneBill</code>
      *
      * @param view
-     *        Reference to search_a_phone_bill button
+     *        Reference to mainSearchAPhoneBillButton button
      */
     public void searchPhoneBill(View view) {
         Intent intent = new Intent(this, SearchPhoneBill.class);

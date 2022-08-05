@@ -5,4 +5,15 @@
     <string name="add_call_to_phone_bill">Add a call to phone bill</string>
     <string name="pretty_print_phone_bill">Pretty print phone bill</string>
     <string name="search_a_phone_bill">Search a phone bill</string>
+    <string name="read_me">READ ME</string>
+    <string name="add_a_new_phone_call_to_a_phone_bill">Add a new phone call to a phone bill</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="caller_number_nnn_nnn_nnnn">Caller Number (nnn-nnn-nnnn)</string>
+    <string name="callee_number_nnn_nnn_nnnn">Callee Number (nnn-nnn-nnnn)</string>
+    <string name="end_date_dd_dd_dddd_dd_dd">End Date (dd/dd/dddd dd:dd)</string>
+    <string name="begin_date_dd_dd_dddd_dd_dd">Begin Date (dd/dd/dddd dd:dd)</string>
+    <string name="am">am</string>
+    <string name="pm">pm</string>
+    <string name="submit">Submit</string>
+    <string name="reset">Reset</string>
 </resources>
