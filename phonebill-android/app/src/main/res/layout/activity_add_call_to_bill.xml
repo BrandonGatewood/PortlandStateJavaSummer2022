@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/add_a_new_phone_call_to_a_phone_bill"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -147,11 +147,11 @@
 
                                 <Button
                                     android:id="@+id/addPhoneBillSubmitButton"
-                                    android:onClick="submitInputs"
+                                    style="?android:attr/buttonBarButtonStyle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/submit"
-                                    style="?android:attr/buttonBarButtonStyle" />
+                                    android:onClick="submitInputs"
+                                    android:text="@string/submit" />
                                 <Button
                                     android:id="@+id/addPhoneBillResetButton"
                                     android:onClick="clearInputs"

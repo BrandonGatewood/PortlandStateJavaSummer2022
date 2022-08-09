@@ -1,7 +1,7 @@
 Project 5
 Brandon Gatewood
 
-This project represents a phone bill application. It keeps track of its customers and their phone calls. Each phone call is saved into a .txt for their phone bill.
+This project represents a phone bill application that keeps track of its customers and their phone calls. Each phone call is saved into a .txt for their phone bill.
 
 Users are given an option to print the README for the project, add a phone call into a new or an existing phone bill and search through a customers phone bill.
 
@@ -28,7 +28,7 @@ The "pretty_print_phone_bill" button will bring the user to a new page, where th
     The user may press the submit button to pretty print or the reset button to reset the input field.
 
     If a customer exist, it will pretty print all of its phone calls.
-    If a customer doesn't exist, it will print "No customer found".
+    If a customer doesn't exist, a pop up will appear stating that the customer wasnt found.
 
     NOTE:
     Customer name can contain characters and digits.

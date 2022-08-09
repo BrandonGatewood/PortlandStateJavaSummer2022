@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".PrettyPrint">
 
+    <TextView
+        android:id="@+id/prettyPrintTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pretty_print"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling"  />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="384dp"
+        android:layout_height="546dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/prettyPrintTitle"
+        app:layout_constraintVertical_bias="1.0">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/prettyPrintCustomerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:hint="@string/customer_name"
+                android:inputType="text"
+                android:labelFor="@id/prettyPrintCustomerName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/prettyPrintCustomerSubmitButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="Print"
+                    android:text="@string/submit" />
+
+                <Button
+                    android:id="@+id/prettyPrintCustomerResetButton"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="clearInputs"
+                    android:text="@string/reset"
+                    android:textColor="@color/design_default_color_secondary" />
+            </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

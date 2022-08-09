@@ -14,6 +14,12 @@
         android:theme="@style/Theme.Phonebill"
         tools:targetApi="31">
         <activity
+            android:name=".DisplaySearchedPhoneBill"
+            android:exported="false" />
+        <activity
+            android:name=".PrettyPrinter"
+            android:exported="false" />
+        <activity
             android:name=".AddCallToBill"
             android:exported="false" />
         <activity

@@ -16,4 +16,10 @@
     <string name="pm">pm</string>
     <string name="submit">Submit</string>
     <string name="reset">Reset</string>
+    <string name="pretty_print">Pretty Print</string>
+    <string name="please_enter_customers_name_to_print">Please enter customers name to print.</string>
+    <string name="customer_s_phone_calls">Customer\'s Phone Calls</string>
+    <string name="search_a_phonebill">Search a PhoneBill</string>
+    <string name="from">From : -</string>
+    <string name="done">Done</string>
 </resources>

@@ -6,4 +6,136 @@
     android:layout_height="match_parent"
     tools:context=".SearchPhoneBill">
 
+    <TextView
+        android:id="@+id/searchPhoneBillTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/search_a_phonebill"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NotSibling" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="384dp"
+        android:layout_height="546dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchPhoneBillTitle"
+        app:layout_constraintVertical_bias="1.0">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchPhoneBillCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:hint="@string/customer_name"
+            android:inputType="text"
+            android:labelFor="@id/searchPhoneBillCustomer" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchPhoneBillBeginDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/begin_date_dd_dd_dddd_dd_dd"
+                android:inputType="datetime"
+                android:labelFor="@id/searchPhoneBillBeginDate" />
+
+            <RadioGroup
+                android:id="@+id/searchPhoneBillBeginAmPm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginBottom="25dp">
+
+                <RadioButton
+                    android:id="@+id/searchPhoneBillBeginAm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/am" />
+
+                <RadioButton
+                    android:id="@+id/searchPhoneBillBeginPm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/pm" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchPhoneBillEndDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/end_date_dd_dd_dddd_dd_dd"
+                    android:inputType="datetime"
+                    android:labelFor="@id/searchPhoneBillEndDate" />
+
+                <RadioGroup
+                    android:id="@+id/searchPhoneBillEndAmPm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="25dp">
+
+                    <RadioButton
+                        android:id="@+id/searchPhoneBillEndAm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/am" />
+
+                    <RadioButton
+                        android:id="@+id/searchPhoneBillEndPm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/pm" />
+                </RadioGroup>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/searchPhoneBillSubmitButton"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="submitInputs"
+                        android:text="@string/submit" />
+                    <Button
+                        android:id="@+id/searchPhoneBillResetButton"
+                        android:onClick="clearInputs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/design_default_color_secondary"
+                        android:text="@string/reset"
+                        style="?android:attr/buttonBarButtonStyle" />
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
